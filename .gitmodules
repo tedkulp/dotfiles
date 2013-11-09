@@ -1,5 +1,5 @@
-[submodule "link/.zpresto"]
-	path = link/.zpresto
+[submodule "link/.zprezto"]
+	path = link/.zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
 [submodule "link/vim-config"]
 	path = link/vim-config
