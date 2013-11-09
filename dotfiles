@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+function link_test() {
+	[[ "$1" -ef "$2" ]] && echo "same file"
+}
+
+function link_file() {
+	ln -sf ${2#$HOME/} ~/
+}
+
+function copy_or_link() {
+	local base dest
+	local cmd="find $HOME/dotfiles/$1 -mindepth 1 -maxdepth 1"
+
+	# If no files, bail
+	if [ "x`${cmd}`" == "x" ]; then return; fi 
+
+	for file in `${cmd}`; do
+		base="$(basename $file)"
+		dest="$HOME/$base"
+		echo "$base -> $dest"
+
+		"$1_file" "$base" "$file"
+	done
+}
+
+copy_or_link "link"
+# copy_or_link "copy"
