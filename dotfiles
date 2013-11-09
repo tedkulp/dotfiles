@@ -8,6 +8,10 @@ function link_file() {
 	ln -sf ${2#$HOME/} ~/
 }
 
+function post_file() {
+	source "$2"
+}
+
 function copy_or_link() {
 	local base dest
 	local cmd="find $HOME/dotfiles/$1 -mindepth 1 -maxdepth 1"
@@ -26,3 +30,4 @@ function copy_or_link() {
 
 copy_or_link "link"
 # copy_or_link "copy"
+copy_or_link "post"
