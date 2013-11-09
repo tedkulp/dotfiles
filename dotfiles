@@ -34,4 +34,4 @@ function copy_or_link() {
 
 copy_or_link "link"
 copy_or_link "copy"
-# copy_or_link "post"
+copy_or_link "post"
