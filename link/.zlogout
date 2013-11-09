@@ -1,1 +1,1 @@
-.zpresto/runcoms/zlogout
+.zprezto/runcoms/zlogout

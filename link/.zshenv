@@ -1,1 +1,1 @@
-.zpresto/runcoms/zshenv
+.zprezto/runcoms/zshenv

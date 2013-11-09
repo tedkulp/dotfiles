@@ -1,1 +1,1 @@
-.zpresto/runcoms/zlogin
+.zprezto/runcoms/zlogin
