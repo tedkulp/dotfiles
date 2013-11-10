@@ -29,6 +29,7 @@ brew upgrade
 brew install ack
 brew install apple-gcc42
 brew install chruby
+brew install coreutils
 brew install elixir
 brew install git
 brew install git-flow
@@ -37,13 +38,15 @@ brew install heroku-toolbelt
 brew install leiningen
 brew install macvim --override-system-vim
 brew install maven
-brew install mongodb
-brew install postgresql
 brew install reattach-to-user-namespace
 brew install ruby-install
 brew install tmux
 brew install weechat --with-python --with-ruby --with-aspell
 
 brew install https://raw.github.com/falsecz/homebrew-misc/master/Formula/git-wtf.rb
+
+# At the end, because they require user intervention
+brew install mongodb
+brew install postgresql
 
 brew cleanup
