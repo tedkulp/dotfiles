@@ -27,6 +27,15 @@
     ~/dotfiles/cask
 ```
 
+* Setup Dropbox and let it sync. We need the link-private directory for all our ssh and
+  gnupg stuff
+
+* After Dropbox is synced, link up the link-private directory to your dotfiles.
+
+```
+ln -s ~/Dropbox/link-private ~/dotfiles/
+```
+
 * Run the dotfiles command. This will symlink everything into place in your home
   directory. If you have some secret files to put into the dotfiles/copy directory,
   now would be a good time.
