@@ -523,6 +523,12 @@ defaults write com.apple.terminal StringEncodings -array 4
 #defaults write com.apple.terminal FocusFollowsMouse -bool true
 #defaults write org.x.X11 wm_ffm -bool true
 
+# Copy over my usual font
+cp "${HOME}/dotfiles/data/Inconsolata-dz-Powerline.otf" ~/Library/Fonts/
+
+# Copy over my configuration
+cp "${HOME}/dotfiles/data/com.googlecode.iterm2.plist" ~/Library/Preferences/
+
 # Install pretty iTerm colors
 open "${HOME}/dotfiles/data/SolarizedDark.itermcolors"
 
