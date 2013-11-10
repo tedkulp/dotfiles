@@ -8,6 +8,10 @@ function link_file() {
 	ln -sf ${2#$HOME/} ~/
 }
 
+function link-private_file() {
+	ln -sf ${2#$HOME/} ~/
+}
+
 function copy_file() {
 	cp -f $2 ~/
 }
@@ -18,7 +22,7 @@ function post_file() {
 
 function copy_or_link() {
 	local base dest
-	local cmd="find $HOME/dotfiles/$1 -mindepth 1 -maxdepth 1"
+	local cmd="find -L $HOME/dotfiles/$1 -mindepth 1 -maxdepth 1"
 
 	# If no files, bail
 	if [ "x`${cmd}`" == "x" ]; then return; fi
@@ -33,5 +37,6 @@ function copy_or_link() {
 }
 
 copy_or_link "link"
+copy_or_link "link-private"
 copy_or_link "copy"
 copy_or_link "post"

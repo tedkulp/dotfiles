@@ -37,8 +37,7 @@ ln -s ~/Dropbox/link-private ~/dotfiles/
 ```
 
 * Run the dotfiles command. This will symlink everything into place in your home
-  directory. If you have some secret files to put into the dotfiles/copy directory,
-  now would be a good time.
+  directory.
 
 ```
 ~/dotfiles/dotfiles
