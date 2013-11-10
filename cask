@@ -23,6 +23,7 @@ if [ -x "$brew_path" ] ; then
   installcask iterm2
   installcask istat-menus
   installcask rdio
+  installcask sizeup
   installcask skype
   installcask sublime-text
   installcask vagrant
