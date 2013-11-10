@@ -5,26 +5,26 @@
   to install the command line tools)
 
 ```
-    git clone --recursive https://github.com/tedkulp/dotfiles.git ~/dotfiles
+git clone --recursive https://github.com/tedkulp/dotfiles.git ~/dotfiles
 ```
 
 * Optionally, run the osx script. This will set a bunch of sensible Mac defaults.
 
 ```
-    ~/dotfiles/osx
+~/dotfiles/osx
 ```
 
 * Run the brew command. Make a sandwich... get a nice beverage...  maybe see if something
   is on Netflix. This will install a lot of software from source.
 
 ```
-    ~/dotfiles/brew
+~/dotfiles/brew
 ```
 
 * Now, optionally, run the cask command. This will install some nice Mac software.
 
 ```
-    ~/dotfiles/cask
+~/dotfiles/cask
 ```
 
 * Setup Dropbox and let it sync. We need the link-private directory for all our ssh and
@@ -41,5 +41,5 @@ ln -s ~/Dropbox/link-private ~/dotfiles/
   now would be a good time.
 
 ```
-    ~/dotfiles/dotfiles
+~/dotfiles/dotfiles
 ```
