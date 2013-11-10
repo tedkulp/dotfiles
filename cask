@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+brew_path=$(which brew)
+if [ -x "$brew_path" ] ; then
+  echo "Install/Updating Homebrew Packages"
+  echo ""
+
+  brew tap phinze/homebrew-cask
+  brew install brew-cask
+
+  function installcask() {
+    brew cask install "${@}"
+  }
+
+  installcask airfoil
+  installcask alfred
+  installcask crashplan
+  installcask dropbox
+  installcask evernote
+  installcask gitx-rowanj
+  installcask google-chrome
+  installcask handbrake
+  installcask iterm2
+  installcask istat-menus
+  installcask rdio
+  installcask skype
+  installcask sublime-text
+  installcask vagrant
+  installcask virtualbox
+else
+  echo "Install Homebrew first. Run ~/dotfiles/brew first."
+  echo ""
+fi
