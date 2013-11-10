@@ -8,6 +8,12 @@
     git clone --recursive https://github.com/tedkulp/dotfiles.git ~/dotfiles
 ```
 
+* Optionally, run the osx script. This will set a bunch of sensible Mac defaults.
+
+```
+    ~/dotfiles/osx
+```
+
 * Run the brew command. Make a sandwich... get a nice beverage...  maybe see if something
   is on Netflix. This will install a lot of software from source.
 
