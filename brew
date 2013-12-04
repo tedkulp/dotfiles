@@ -31,13 +31,19 @@ brew install apple-gcc42
 brew install chruby
 brew install coreutils
 brew install elixir
+brew install gdbm
 brew install git
 brew install git-flow
 brew install go
 brew install heroku-toolbelt
+brew install hub
 brew install leiningen
+brew install libffi
+brew install libyaml
 brew install macvim --override-system-vim
 brew install maven
+brew install openssl
+brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
 brew install tmux

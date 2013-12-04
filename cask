@@ -24,6 +24,7 @@ if [ -x "$brew_path" ] ; then
   installcask istat-menus
   installcask rdio
   installcask sizeup
+  installcask skitch
   installcask skype
   installcask sublime-text
   installcask vagrant
