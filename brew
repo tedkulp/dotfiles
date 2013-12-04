@@ -48,5 +48,6 @@ brew install https://raw.github.com/falsecz/homebrew-misc/master/Formula/git-wtf
 # At the end, because they require user intervention
 brew install mongodb
 brew install postgresql
+brew install redis
 
 brew cleanup
