@@ -27,6 +27,7 @@ brew update
 brew upgrade
 
 brew install ack
+brew install ansible
 brew install apple-gcc42
 brew install chruby
 brew install coreutils
@@ -47,6 +48,7 @@ brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
 brew install tmux
+brew install unixodbc
 brew install weechat --with-python --with-ruby --with-aspell
 
 brew install https://raw.github.com/falsecz/homebrew-misc/master/Formula/git-wtf.rb
