@@ -36,6 +36,7 @@ brew install gdbm
 brew install git
 brew install git-flow
 brew install go
+brew install gnupg2
 brew install heroku-toolbelt
 brew install hub
 brew install leiningen
