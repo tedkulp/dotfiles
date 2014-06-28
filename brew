@@ -27,6 +27,7 @@ brew update
 brew upgrade
 
 brew install ack
+brew install ag
 brew install ansible
 brew install apple-gcc42
 brew install chruby
@@ -39,16 +40,19 @@ brew install go
 brew install gnupg2
 brew install heroku-toolbelt
 brew install hub
+brew install imagemagick
 brew install leiningen
 brew install libffi
 brew install libyaml
 brew install macvim --override-system-vim
 brew install maven
+brew install ngrok
 brew install openssl
 brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
 brew install tmux
+brew install ttyrec
 brew install unixodbc
 brew install weechat --with-python --with-ruby --with-aspell
 
