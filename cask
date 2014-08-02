@@ -14,6 +14,7 @@ if [ -x "$brew_path" ] ; then
 
   installcask airfoil
   installcask alfred
+  installcask asepsis
   installcask atom
   installcask crashplan
   installcask dropbox
@@ -23,6 +24,7 @@ if [ -x "$brew_path" ] ; then
   installcask handbrake
   installcask iterm2
   installcask istat-menus
+  installcask java
   installcask libreoffice
   installcask rdio
   installcask sizeup
