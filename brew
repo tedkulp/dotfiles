@@ -30,15 +30,19 @@ brew install ack
 brew install ag
 brew install ansible
 brew install apple-gcc42
+brew install boot2docker
 brew install chruby
 brew install coreutils
+brew install docker
 brew install elixir
+brew install fig
 brew install gdbm
 brew install git
 brew install git-flow
 brew install go
 brew install gnupg2
 brew install heroku-toolbelt
+brew install htop-osx
 brew install hub
 brew install imagemagick
 brew install leiningen
@@ -51,9 +55,11 @@ brew install openssl
 brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
+brew install sbt
 brew install scala
 brew install tmux
 brew install ttyrec
+brew install typesafe-activator
 brew install unixodbc
 brew install weechat --with-python --with-ruby --with-aspell
 
