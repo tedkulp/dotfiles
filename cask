@@ -12,6 +12,7 @@ if [ -x "$brew_path" ] ; then
     brew cask install "${@}"
   }
 
+  installcask adobe-creative-cloud
   installcask airfoil
   installcask alfred
   installcask asepsis
@@ -22,15 +23,20 @@ if [ -x "$brew_path" ] ; then
   installcask gitx-rowanj
   installcask google-chrome
   installcask handbrake
+  installcask hipchat
+  installcask intellij-idea-ce
   installcask iterm2
   installcask istat-menus
   installcask java
   installcask libreoffice
+  installcask makemkv
   installcask rdio
-  installcask sizeup
+  installcask sidestep
   installcask skitch
   installcask skype
+  installcask slack
   installcask sourcetree
+  installcask steam
   installcask sublime-text
   installcask vagrant
   installcask virtualbox
