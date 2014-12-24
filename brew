@@ -39,8 +39,9 @@ brew install fig
 brew install gdbm
 brew install git
 brew install git-flow
-brew install go
 brew install gnupg2
+brew install go
+brew install gradle
 brew install heroku-toolbelt
 brew install htop-osx
 brew install hub
