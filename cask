@@ -38,6 +38,7 @@ if [ -x "$brew_path" ] ; then
   installcask sourcetree
   installcask steam
   installcask sublime-text
+  installcask teamviewer
   installcask vagrant
   installcask virtualbox
 else
