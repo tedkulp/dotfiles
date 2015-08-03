@@ -32,3 +32,5 @@ fi
 
 export NVM_DIR="/Users/tedkulp/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# setopt no_complete_aliases
