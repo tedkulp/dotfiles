@@ -5,7 +5,7 @@ if [ -x "$brew_path" ] ; then
   echo "Install/Updating Homebrew Packages"
   echo ""
 
-  brew tap phinze/homebrew-cask
+  brew tap caskroom/homebrew-cask
   brew install brew-cask
 
   function installcask() {
