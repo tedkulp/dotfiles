@@ -6,9 +6,13 @@
 #
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+# if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+#   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+# fi
+
+# Source antigen
+source $(brew --prefix)/share/antigen/antigen.zsh
+source ~/.antigen.zsh
 
 # Run all files in dotfiles source directory
 if [[ -d "$HOME/dotfiles/source" ]]; then
@@ -34,3 +38,7 @@ export NVM_DIR="/Users/tedkulp/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # setopt no_complete_aliases
+
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+
+export HOMEBREW_GITHUB_API_TOKEN=80ad9e8581e2506efeaedaa079ae02b50add8821

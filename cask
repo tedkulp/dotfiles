@@ -13,34 +13,37 @@ if [ -x "$brew_path" ] ; then
   }
 
   installcask adobe-creative-cloud
-  installcask airfoil
   installcask alfred
-  installcask asepsis
   installcask atom
   installcask crashplan
+  installcask dbvisualizer
+  installcask docker-toolbox
   installcask dropbox
-  installcask evernote
+  installcask gitter
+  installcask gitup
   installcask gitx-rowanj
   installcask google-chrome
+  installcask google-earth
+  installcask gopro-studio
   installcask handbrake
-  installcask hipchat
-  installcask intellij-idea-ce
+  installcask handbrakecli
+  installcask intellij-idea
   installcask iterm2
   installcask istat-menus
   installcask java
-  installcask libreoffice
+  installcask mactex
   installcask makemkv
-  installcask rdio
+  installcask sharemouse
   installcask sidestep
-  installcask skitch
   installcask skype
   installcask slack
   installcask sourcetree
+  installcask spotify
   installcask steam
-  installcask sublime-text
   installcask teamviewer
   installcask vagrant
   installcask virtualbox
+  installcask vlc
 else
   echo "Install Homebrew first. Run ~/dotfiles/brew first."
   echo ""

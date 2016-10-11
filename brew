@@ -29,40 +29,46 @@ brew upgrade
 brew install ack
 brew install ag
 brew install ansible
+brew install antigen
 brew install apple-gcc42
-brew install boot2docker
 brew install chruby
 brew install coreutils
 brew install docker
-brew install elixir
-brew install fig
+brew install docker-compose
+brew install docker-machine
+brew install emacs
+brew install emacs-mac
+brew install ffmpeg
 brew install gdbm
 brew install git
-brew install git-flow
 brew install gnupg2
 brew install go
-brew install gradle
 brew install heroku-toolbelt
 brew install htop-osx
 brew install hub
 brew install imagemagick
-brew install leiningen
 brew install libffi
 brew install libyaml
+brew install jq
 brew install macvim --override-system-vim
 brew install maven
-brew install ngrok
+brew install mkvtoolnix
+brew install ngrok2
+brew install nmap
 brew install openssl
+brew install pandoc
+brew install phantomjs
 brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
-brew install sbt
-brew install scala
+brew install teensy_loader_cli
+brew install the_platinum_searcher
+brew install the_silver_searcher
 brew install tmux
 brew install ttyrec
 brew install typesafe-activator
 brew install unixodbc
-brew install weechat --with-python --with-ruby --with-aspell
+brew install xz
 
 brew install https://raw.github.com/falsecz/homebrew-misc/master/Formula/git-wtf.rb
 
