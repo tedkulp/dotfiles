@@ -5,23 +5,26 @@ if [ -x "$brew_path" ] ; then
   echo "Install/Updating Homebrew Packages"
   echo ""
 
-  brew tap caskroom/homebrew-cask
+  brew tap caskroom/cask
   brew install brew-cask
 
   function installcask() {
     brew cask install "${@}"
   }
 
+  installcask java
   installcask adobe-creative-cloud
   installcask alfred
   installcask atom
+  installcask bartender
+  installcask bettertouchtool
   installcask crashplan
   installcask dbvisualizer
   installcask docker-toolbox
   installcask dropbox
   installcask gitter
   installcask gitup
-  installcask gitx-rowanj
+  installcask rowanj-gitx
   installcask google-chrome
   installcask google-earth
   installcask gopro-studio
@@ -30,7 +33,6 @@ if [ -x "$brew_path" ] ; then
   installcask intellij-idea
   installcask iterm2
   installcask istat-menus
-  installcask java
   installcask mactex
   installcask makemkv
   installcask sharemouse

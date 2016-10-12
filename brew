@@ -7,7 +7,7 @@ if [ -x "$brew_path" ] ; then
 else
   echo "Installing homebrew"
   echo ""
-  ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   if [ $? -ne 0 ]; then
     echo "Error installing homebrew. Bailing..."
     echo ""
