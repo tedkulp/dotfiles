@@ -62,6 +62,7 @@ brew install readline
 brew install reattach-to-user-namespace
 brew install ruby-install
 brew install teensy_loader_cli
+brew install tesseract
 brew install the_platinum_searcher
 brew install the_silver_searcher
 brew install tmux
@@ -71,10 +72,5 @@ brew install unixodbc
 brew install xz
 
 brew install https://raw.github.com/falsecz/homebrew-misc/master/Formula/git-wtf.rb
-
-# At the end, because they require user intervention
-brew install mongodb
-brew install postgresql
-brew install redis
 
 brew cleanup

@@ -20,6 +20,7 @@ if [ -x "$brew_path" ] ; then
   installcask bettertouchtool
   installcask crashplan
   installcask dbvisualizer
+  installcask discord
   installcask docker-toolbox
   installcask dropbox
   installcask gitter
