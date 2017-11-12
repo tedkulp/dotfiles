@@ -1,0 +1,3 @@
+cd $(realpath ~)/zsh-quickstart-kit
+
+stow --target=$(realpath ~) zsh
