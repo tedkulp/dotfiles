@@ -18,31 +18,30 @@ if [ -x "$brew_path" ] ; then
   installcask atom
   installcask bartender
   installcask bettertouchtool
-  installcask crashplan
-  installcask dbvisualizer
   installcask discord
-  installcask docker-toolbox
   installcask dropbox
+  installcask firefox
+  installcask fluid
   installcask gitter
   installcask gitup
-  installcask rowanj-gitx
   installcask google-chrome
   installcask google-earth
   installcask gopro-studio
   installcask handbrake
   installcask handbrakecli
-  installcask intellij-idea
-  installcask iterm2
   installcask istat-menus
+  installcask iterm2
+  installcask keycastr
   installcask mactex
   installcask makemkv
+  installcask ngrok
+  installcask resilio-sync
+  installcask rowanj-gitx
   installcask sharemouse
-  installcask sidestep
+  installcask shimo
   installcask skype
   installcask slack
-  installcask sourcetree
   installcask spotify
-  installcask steam
   installcask teamviewer
   installcask vagrant
   installcask virtualbox

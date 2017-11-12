@@ -1,6 +1,12 @@
-[submodule "link/.zprezto"]
-	path = link/.zprezto
-	url = https://github.com/sorin-ionescu/prezto.git
 [submodule "link/vim-config"]
-	path = link/vim-config
-	url = https://github.com/tedkulp/vim-config.git
+  path = link/vim-config
+  url = https://github.com/tedkulp/vim-config.git
+[submodule "link/.emacs.d"]
+  path = link/.emacs.d
+  url = https://github.com/syl20bnr/spacemacs.git
+[submodule "link/zgen"]
+  path = link/zgen
+  url = https://github.com/tarjoilija/zgen.git
+[submodule "link/zsh-quickstart-kit"]
+  path = link/zsh-quickstart-kit
+  url = https://github.com/unixorn/zsh-quickstart-kit.git
