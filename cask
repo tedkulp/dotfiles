@@ -15,9 +15,11 @@ if [ -x "$brew_path" ] ; then
   installcask java
   installcask adobe-creative-cloud
   installcask alfred
+  installcask arq
   installcask atom
   installcask bartender
   installcask bettertouchtool
+  installcask dash
   installcask discord
   installcask dropbox
   installcask firefox
@@ -29,12 +31,16 @@ if [ -x "$brew_path" ] ; then
   installcask gopro-studio
   installcask handbrake
   installcask handbrakecli
+  installcask hazel
+  installcask imazing
   installcask istat-menus
   installcask iterm2
   installcask keycastr
   installcask mactex
   installcask makemkv
+  installcask moom
   installcask ngrok
+  installcask postman
   installcask resilio-sync
   installcask rowanj-gitx
   installcask sharemouse
@@ -43,6 +49,7 @@ if [ -x "$brew_path" ] ; then
   installcask slack
   installcask spotify
   installcask teamviewer
+  installcask toggl
   installcask vagrant
   installcask virtualbox
   installcask vlc
