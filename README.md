@@ -1,5 +1,7 @@
 # Ted's Dotfiles
 
+## Setup Directions
+
 * Install XCode. The big one is needed to compile MacVim, so don't skimp.
 * Using the system git, clone this repository. (This will most likely prompt you
   to install the command line tools)
@@ -42,3 +44,10 @@ ln -s ~/Dropbox/link-private ~/dotfiles/
 ```
 ~/dotfiles/dotfiles
 ```
+
+## Links
+
+* ZSH Quickstart Kit - https://github.com/unixorn/zsh-quickstart-kit
+* zgen - https://github.com/tarjoilija/zgen
+* Spacemacs - https://github.com/syl20bnr/spacemacs
+* My VIM Config - https://github.com/tedkulp/vim-config
