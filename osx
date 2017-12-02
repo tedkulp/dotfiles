@@ -524,7 +524,7 @@ defaults write com.apple.terminal StringEncodings -array 4
 #defaults write org.x.X11 wm_ffm -bool true
 
 # Copy over my usual font
-cp "${HOME}/dotfiles/data/Inconsolata-dz-Powerline.otf" ~/Library/Fonts/
+cp "${HOME}/dotfiles/data/*.ttf" ~/Library/Fonts/
 
 # Copy over my configuration
 cp "${HOME}/dotfiles/data/com.googlecode.iterm2.plist" ~/Library/Preferences/
