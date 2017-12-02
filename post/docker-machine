@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker-machine create -d "virtualbox" --virtualbox-memory "3192" default

@@ -56,6 +56,7 @@ brew install jq
 brew install mkvtoolnix
 brew install ngrok2
 brew install nmap
+brew install nvm
 brew install openssl
 brew install pandoc
 brew install phantomjs
