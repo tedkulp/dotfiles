@@ -1,0 +1,3 @@
+# Two finger back is the WORST
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool FALSE
