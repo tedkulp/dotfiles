@@ -53,6 +53,7 @@ brew install libffi
 brew install libyaml
 brew install kubernetes-cli
 brew install jq
+brew install maven
 brew install mkvtoolnix
 brew install ngrok2
 brew install nmap

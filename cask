@@ -6,13 +6,16 @@ if [ -x "$brew_path" ] ; then
   echo ""
 
   brew tap caskroom/cask
+  brew tap caskroom/versions
   brew install brew-cask
 
   function installcask() {
     brew cask install "${@}"
   }
 
-  installcask java
+  ## TODO: Update after JG contract is over
+  installcask java8
+
   installcask adobe-creative-cloud
   installcask alfred
   installcask arq
