@@ -38,9 +38,11 @@ if [ -x "$brew_path" ] ; then
   installcask imazing
   installcask istat-menus
   installcask iterm2
+  installcask java8
   installcask keycastr
   installcask mactex
   installcask makemkv
+  installcask microsoft-office
   installcask moom
   installcask ngrok
   installcask postman
@@ -56,6 +58,7 @@ if [ -x "$brew_path" ] ; then
   installcask vagrant
   installcask virtualbox
   installcask vlc
+  installcask whatsapp
 else
   echo "Install Homebrew first. Run ~/dotfiles/brew first."
   echo ""
