@@ -28,7 +28,6 @@ brew upgrade
 
 brew install ack
 brew install ag
-brew install ansible
 brew install antigen
 brew install apple-gcc42
 brew install awscli
@@ -36,11 +35,10 @@ brew install chruby
 brew install coreutils
 brew install docker
 brew install docker-compose
-brew install docker-machine
 brew install elixir
-brew install emacs --HEAD --use-git-head --with-cocoa --with-gnutls --with-rsvg --with-imagemagick
 brew install erlang
 brew install ffmpeg
+brew install fx
 brew install gdbm
 brew install git
 brew install gnupg2
@@ -58,7 +56,6 @@ brew install maven
 brew install mkvtoolnix
 brew install ngrok2
 brew install nmap
-brew install nvm
 brew install openssl
 brew install pandoc
 brew install phantomjs
@@ -67,7 +64,6 @@ brew install reattach-to-user-namespace
 brew install ruby-install
 brew install stow
 brew install teensy_loader_cli
-brew install tesseract
 brew install the_platinum_searcher
 brew install the_silver_searcher
 brew install tmux

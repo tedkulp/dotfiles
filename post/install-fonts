@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+cd ../data
+cp -v *.ttf /Library/Fonts
+cd "Fira Code iScript"
+cp -v *.ttf /Library/Fonts

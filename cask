@@ -13,50 +13,48 @@ if [ -x "$brew_path" ] ; then
     brew cask install "${@}"
   }
 
-  ## TODO: Update after JG contract is over
   installcask java8
 
+  installcask 1password
   installcask adobe-creative-cloud
   installcask alfred
+  installcask anki
   installcask arq
-  installcask atom
   installcask bartender
   installcask bettertouchtool
+  installcask burp-suite
+  installcask daisydisk
   installcask dash
   installcask discord
   installcask dropbox
   installcask firefox
   installcask fluid
-  installcask gitter
-  installcask gitup
   installcask google-chrome
-  installcask google-earth
-  installcask gopro-studio
   installcask handbrake
   installcask handbrakecli
   installcask hazel
+  installcask hyper-canary
   installcask imazing
   installcask istat-menus
   installcask iterm2
-  installcask java8
   installcask keycastr
-  installcask mactex
-  installcask makemkv
   installcask microsoft-office
   installcask moom
+  installcask nextcloud
   installcask ngrok
   installcask postman
-  installcask resilio-sync
+  installcask robo-3t
   installcask rowanj-gitx
-  installcask sharemouse
+  installcask secure-pipes
+  installcask sequel-pro
   installcask shimo
   installcask skype
   installcask slack
   installcask spotify
+  installcask superduper
   installcask teamviewer
-  installcask toggl
-  installcask vagrant
   installcask virtualbox
+  installcask visual-studio-code
   installcask vlc
   installcask whatsapp
 else

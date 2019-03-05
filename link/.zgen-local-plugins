@@ -46,30 +46,30 @@ zgen load djui/alias-tips
 zgen load unixorn/git-extra-commands
 
 # Add my bitbucket git helpers plugin
-zgen load unixorn/bitbucket-git-helpers.plugin.zsh
+# zgen load unixorn/bitbucket-git-helpers.plugin.zsh
 
 # A collection of scripts that might be useful to sysadmins
-zgen load skx/sysadmin-util
+# zgen load skx/sysadmin-util
 
 # Adds aliases to open your current repo & branch on github.
 zgen load peterhurford/git-it-on.zsh
 
 # Tom Limoncelli's tooling for storing private information (keys, etc)
 # in a repository securely by encrypting them with gnupg
-zgen load StackExchange/blackbox
+# zgen load StackExchange/blackbox
 
 # Load some oh-my-zsh plugins
 zgen oh-my-zsh plugins/pip
 zgen oh-my-zsh plugins/sudo
-zgen oh-my-zsh plugins/aws
+# zgen oh-my-zsh plugins/aws
 zgen oh-my-zsh plugins/chruby
 zgen oh-my-zsh plugins/colored-man-pages
 zgen oh-my-zsh plugins/git
 zgen oh-my-zsh plugins/github
 zgen oh-my-zsh plugins/python
-zgen oh-my-zsh plugins/rsync
-zgen oh-my-zsh plugins/screen
-zgen oh-my-zsh plugins/vagrant
+# zgen oh-my-zsh plugins/rsync
+# zgen oh-my-zsh plugins/screen
+# zgen oh-my-zsh plugins/vagrant
 
 if [ $(uname -a | grep -ci Darwin) = 1 ]; then
 	# Load OSX-specific plugins
@@ -79,7 +79,7 @@ fi
 
 # A set of shell functions to make it easy to install small apps and
 # utilities distributed with pip.
-zgen load sharat87/pip-app
+# zgen load sharat87/pip-app
 
 zgen load chrissicool/zsh-256color
 
@@ -95,14 +95,14 @@ GENCOMPL_FPATH=$HOME/.zsh/complete
 # Very cool plugin that generates zsh completion functions for commands
 # if they have getopt-style help text. It doesn't generate them on the fly,
 # you'll have to explicitly generate a completion, but it's still quite cool.
-zgen load RobSis/zsh-completion-generator
+# zgen load RobSis/zsh-completion-generator
 
 # Add Fish-like autosuggestions to your ZSH
 zgen load zsh-users/zsh-autosuggestions
 
 # k is a zsh script / plugin to make directory listings more readable,
 # adding a bit of color and some git status information on files and directories
-zgen load rimraf/k
+# zgen load rimraf/k
 
 # Bullet train prompt setup
 # zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
