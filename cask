@@ -5,9 +5,9 @@ if [ -x "$brew_path" ] ; then
   echo "Install/Updating Homebrew Packages"
   echo ""
 
-  brew tap caskroom/cask
-  brew tap caskroom/versions
-  brew install brew-cask
+  #brew tap caskroom/cask
+  #brew tap caskroom/versions
+  #brew install brew-cask
 
   function installcask() {
     brew cask install "${@}"
@@ -26,6 +26,7 @@ if [ -x "$brew_path" ] ; then
   installcask daisydisk
   installcask dash
   installcask discord
+  installcask docker
   installcask dropbox
   installcask firefox
   installcask fluid
@@ -42,6 +43,7 @@ if [ -x "$brew_path" ] ; then
   installcask moom
   installcask nextcloud
   installcask ngrok
+  installcask phantomjs
   installcask postman
   installcask robo-3t
   installcask rowanj-gitx
@@ -54,9 +56,11 @@ if [ -x "$brew_path" ] ; then
   installcask superduper
   installcask teamviewer
   installcask virtualbox
+  installcask virtualbox-extension-pack
   installcask visual-studio-code
   installcask vlc
   installcask whatsapp
+  installcask zoomus
 else
   echo "Install Homebrew first. Run ~/dotfiles/brew first."
   echo ""
