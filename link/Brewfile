@@ -2,9 +2,7 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
-
 cask "java8"
-
 brew "ack"
 brew "antigen"
 brew "automake"
@@ -17,7 +15,6 @@ brew "bison"
 brew "libffi"
 brew "chruby"
 brew "coreutils"
-brew "libyaml"
 brew "erlang"
 brew "elixir"
 brew "ffmpeg"
@@ -29,9 +26,11 @@ brew "htop"
 brew "hub"
 brew "imagemagick"
 brew "jq"
+brew "libyaml"
 brew "markdown"
 brew "mas"
 brew "mkvtoolnix"
+brew "mosh"
 brew "n", args: ["HEAD"]
 brew "nmap"
 brew "pandoc"
@@ -48,7 +47,6 @@ brew "vim"
 brew "wallpaper"
 brew "youtube-dl"
 brew "zsh"
-
 cask "1password"
 cask "adobe-creative-cloud"
 cask "alfred"
@@ -96,6 +94,5 @@ cask "visual-studio-code"
 cask "vlc"
 cask "whatsapp"
 cask "zoomus"
-
-mas "Monosnap", id: 540348655
-mas "Xcode", id: 497799835
+mas "com.apple.dt.Xcode", id: 497799835
+mas "com.monosnap.monosnap", id: 540348655
