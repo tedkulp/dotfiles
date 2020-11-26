@@ -69,6 +69,7 @@ zgen oh-my-zsh plugins/github
 zgen oh-my-zsh plugins/python
 # zgen oh-my-zsh plugins/rsync
 # zgen oh-my-zsh plugins/screen
+zgen oh-my-zsh plugins/shrink-path
 # zgen oh-my-zsh plugins/vagrant
 
 if [ $(uname -a | grep -ci Darwin) = 1 ]; then
