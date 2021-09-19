@@ -1,0 +1,1 @@
+alias xssh="xpanes --ssh"
