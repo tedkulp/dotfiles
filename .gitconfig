@@ -1,0 +1,11 @@
+[user]
+	name = Ted Kulp
+	email = ted@tedkulp.com
+  gmail = tedkulp@gmail.com
+	signingKey = AE6B007E2FAB1C94319C7C09FD56BE79CDAE7895
+[commit]
+	gpgsign = true
+[credential]
+	helper = osxkeychain
+[pull]
+	rebase = false
