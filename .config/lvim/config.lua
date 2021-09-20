@@ -106,55 +106,98 @@ vim.cmd("set timeoutlen=500")
 
 -- Additional Plugins
 lvim.plugins = {
-  {
-    "p00f/nvim-ts-rainbow",
-  },
-  { "tpope/vim-repeat" },
-  {
-    "tpope/vim-surround",
-    keys = {"c", "d", "y"}
-  },
-  {
-    "metakirby5/codi.vim",
-    cmd = "Codi",
-  },
-  {
-    "monaqa/dial.nvim",
-    event = "BufRead",
-    config = function()
-      local dial = require "dial"
-      vim.cmd [[
+	{
+		"tpope/vim-surround",
+		keys = { "c", "d", "y" },
+	},
+	{
+		"ethanholz/nvim-lastplace",
+		event = "BufRead",
+		config = function()
+			require("nvim-lastplace").setup({
+				lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+				lastplace_ignore_filetype = {
+					"gitcommit",
+					"gitrebase",
+					"svn",
+					"hgcommit",
+				},
+				lastplace_open_folds = true,
+			})
+		end,
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "BufRead",
+		setup = function()
+			vim.g.indentLine_enabled = 1
+			vim.g.indent_blankline_char = "▏"
+			vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
+			vim.g.indent_blankline_buftype_exclude = { "terminal" }
+			vim.g.indent_blankline_show_trailing_blankline_indent = false
+			vim.g.indent_blankline_show_first_indent_level = false
+		end,
+	},
+	{
+		"ggandor/lightspeed.nvim",
+		event = "BufRead",
+	},
+	{
+		"nacro90/numb.nvim",
+		event = "BufRead",
+		config = function()
+			require("numb").setup({
+				show_numbers = true, -- Enable 'number' for the window while peeking
+				show_cursorline = true, -- Enable 'cursorline' for the window while peeking
+			})
+		end,
+	},
+	{
+		"windwp/nvim-spectre",
+		event = "BufRead",
+		config = function()
+			require("spectre").setup()
+		end,
+	},
+	{
+		"andymass/vim-matchup",
+		event = "CursorMoved",
+		config = function()
+			vim.g.matchup_matchparen_offscreen = { method = "popup" }
+		end,
+	},
+	{
+		"p00f/nvim-ts-rainbow",
+	},
+	{ "tpope/vim-repeat" },
+	{
+		"monaqa/dial.nvim",
+		event = "BufRead",
+		config = function()
+			local dial = require("dial")
+			vim.cmd([[
         nmap <C-a> <Plug>(dial-increment)
         nmap <C-x> <Plug>(dial-decrement)
         vmap <C-a> <Plug>(dial-increment)
         vmap <C-x> <Plug>(dial-decrement)
         vmap g<C-a> <Plug>(dial-increment-additional)
         vmap g<C-x> <Plug>(dial-decrement-additional)
-      ]]
+      ]])
 
-      dial.augends["custom#boolean"] = dial.common.enum_cyclic {
-        name = "boolean",
-        strlist = { "true", "false" },
-      }
-      table.insert(dial.config.searchlist.normal, "custom#boolean")
+			dial.augends["custom#boolean"] = dial.common.enum_cyclic({
+				name = "boolean",
+				strlist = { "true", "false" },
+			})
+			table.insert(dial.config.searchlist.normal, "custom#boolean")
 
-      -- For Languages which prefer True/False, e.g. python.
-      dial.augends["custom#Boolean"] = dial.common.enum_cyclic {
-        name = "Boolean",
-        strlist = { "True", "False" },
-      }
-      table.insert(dial.config.searchlist.normal, "custom#Boolean")
-    end,
-  },
-  {
-    "phaazon/hop.nvim",
-    event = "BufRead",
-    config = function()
-      require("hop").setup()
-      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
-    end,
-  },
+			-- For Languages which prefer True/False, e.g. python.
+			dial.augends["custom#Boolean"] = dial.common.enum_cyclic({
+				name = "Boolean",
+				strlist = { "True", "False" },
+			})
+			table.insert(dial.config.searchlist.normal, "custom#Boolean")
+		end,
+	},
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -163,11 +206,11 @@ lvim.plugins = {
 -- }
 
 -- Typescript/javascript
-lvim.lang.typescript.formatters = { { exe = "eslint"}, { exe = "prettier" } }
+lvim.lang.typescript.formatters = { { exe = "eslint" }, { exe = "prettier" } }
 lvim.lang.typescriptreact.formatters = lvim.lang.typescript.formatters
 lvim.lang.typescript.linters = { { exe = "eslint" } }
 lvim.lang.typescriptreact.linters = lvim.lang.typescript.linters
-lvim.lang.javascript.formatters = { { exe = "eslint"}, { exe = "prettier" } }
+lvim.lang.javascript.formatters = { { exe = "eslint" }, { exe = "prettier" } }
 lvim.lang.javascriptreact.formatters = lvim.lang.javascript.formatters
 lvim.lang.javascript.linters = { { exe = "eslint" } }
 lvim.lang.javascriptreact.linters = lvim.lang.javascript.linters
@@ -175,3 +218,5 @@ lvim.lang.javascriptreact.linters = lvim.lang.javascript.linters
 -- JSON
 lvim.lang.json.formatters = { { exe = "prettier" } }
 
+-- Lua
+lvim.lang.lua.formatters = { { exe = "stylua" } }

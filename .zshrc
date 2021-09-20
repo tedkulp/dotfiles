@@ -107,4 +107,4 @@ source $ZSH/oh-my-zsh.sh
 # uninstall by removing these lines
 # [ -f ~/.config/tabtab/__tabtab.fish ]; and . ~/.config/tabtab/__tabtab.fish; or true
 
-source <("/usr/local/bin/starship" init zsh --print-full-init)
+# source <("/usr/local/bin/starship" init zsh --print-full-init)
