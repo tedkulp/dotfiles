@@ -80,6 +80,7 @@ if [ "$system_type" = "Linux" ]; then
   if ! command -v lvim >/dev/null 2>&1; then
     . $HOME/.cargo/env
     bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+    yadm checkout $HOME/.config/lvim/config.lua # We want our version
     $HOME/.local/bin/lvim +PackerSync
   fi
 
