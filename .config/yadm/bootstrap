@@ -73,6 +73,7 @@ if [ "$system_type" = "Linux" ]; then
 
   # Install lunarvim
   if ! command -v lvim >/dev/null 2>&1; then
+    . $HOME/.cargo/env
     bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
     lvim +PackerSync
   fi
@@ -109,6 +110,7 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing oh-my-zsh. Install zsh as default, but then exit out to continue."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  yadm checkout $HOME/.zshrc # We want our version
 fi
 
 # Wrapping up

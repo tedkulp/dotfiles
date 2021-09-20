@@ -5,6 +5,6 @@ alias vim="nvim"
 alias vi="nvim"
 
 ## Lunarvim
-# alias vim="lvim"
-# alias vi="lvim"
+alias vim="lvim"
+alias vi="lvim"
 export PATH=~/.local/bin:$PATH
