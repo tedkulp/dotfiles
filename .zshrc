@@ -73,7 +73,7 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git autojump fzf aws vscode zsh-syntax-highlighting sudo dash zsh-z)
+plugins=(vi-mode git fzf aws vscode sudo dash zsh-z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 

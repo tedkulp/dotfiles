@@ -96,14 +96,6 @@ if [ "$system_type" = "Linux" ]; then
   if ! command -v powerline-go >/dev/null 2>&1; then
     go install github.com/justjanne/powerline-go@latest
   fi
-
-  # Install autojump if necessary
-  if ! command -v autojump >/dev/null 2>&1; then
-    git clone git://github.com/wting/autojump.git
-    cd $HOME/autojump
-    ./install.py
-    cd $HOME
-  fi
 fi
 
 # Oh My ZSH
@@ -111,6 +103,9 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing oh-my-zsh. Install zsh as default, but then exit out to continue."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   yadm checkout $HOME/.zshrc # We want our version
+  . $HOME/.zshrc
+  git clone https://github.com/agkozak/zsh-z $HOME/.config/zsh/plugins/zsh-z
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.config/zsh/plugins/zsh-syntax-highlighting
 fi
 
 # Wrapping up
