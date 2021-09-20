@@ -38,6 +38,11 @@ if [ "$system_type" = "Darwin" ]; then
     echo "Updating homebrew bundle"
     brew bundle --global
   fi
+
+  # Install powerline-go if necessary
+  if ! command -v powerline-go >/dev/null 2>&1; then
+    go install github.com/justjanne/powerline-go@latest
+  fi
 fi
 
 # Linux Specifics
