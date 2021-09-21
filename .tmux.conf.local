@@ -377,6 +377,7 @@ set -g @plugin 'tmux-plugins/tmux-cpu'
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-urlview'
 #set -g @continuum-restore 'on'
+set -g @plugin 'sainnhe/tmux-fzf'
 
 
 # -- custom variables ----------------------------------------------------------
