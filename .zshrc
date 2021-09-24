@@ -107,8 +107,4 @@ source $ZSH/oh-my-zsh.sh
 # uninstall by removing these lines
 # [ -f ~/.config/tabtab/__tabtab.fish ]; and . ~/.config/tabtab/__tabtab.fish; or true
 
-# source <("/usr/local/bin/starship" init zsh --print-full-init)
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source <("/usr/local/bin/starship" init zsh --print-full-init)

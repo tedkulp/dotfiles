@@ -378,6 +378,7 @@ set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-urlview'
 #set -g @continuum-restore 'on'
 set -g @plugin 'sainnhe/tmux-fzf'
+set -g @plugin 'laktak/extrakto'
 
 
 # -- custom variables ----------------------------------------------------------
