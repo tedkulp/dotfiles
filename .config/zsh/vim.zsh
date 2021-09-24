@@ -8,3 +8,4 @@ alias vi="nvim"
 alias vim="lvim"
 alias vi="lvim"
 export PATH=~/.local/bin:$PATH
+export EDITOR="lvim"
