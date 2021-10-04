@@ -180,6 +180,7 @@ mas "Final Cut Pro", id: 424389933
 mas "Greenshot", id: 1103915944
 mas "Pixelmator", id: 407963104
 mas "Sequel Ace", id: 1518036000
+mas "Tailscale", id: 1475387142
 mas "Todoist", id: 585829637
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
