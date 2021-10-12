@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 ZSH_DISABLE_COMPFIX=true
 setopt HIST_IGNORE_SPACE
 # If you come from bash you might have to change your $PATH.
@@ -108,3 +109,5 @@ source $ZSH/oh-my-zsh.sh
 # [ -f ~/.config/tabtab/__tabtab.fish ]; and . ~/.config/tabtab/__tabtab.fish; or true
 
 source <("/usr/local/bin/starship" init zsh --print-full-init)
+
+# zprof
