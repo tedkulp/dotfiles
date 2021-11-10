@@ -114,6 +114,13 @@ if [ "$system_type" = "Linux" ]; then
     sudo systemctl enable docker.service
     sudo systemctl enable containerd.service
   fi
+
+  # Install lazygit if necessary
+  if ! command -v lazygit >/dev/null 2>&1; then
+    sudo add-apt-repository ppa:lazygit-team/release -y
+    sudo apt-get update -y
+    sudo apt-get install lazygit -y
+  fi
 fi
 
 # Oh My ZSH
