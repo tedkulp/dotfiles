@@ -18,6 +18,8 @@ alias gie='git init && git commit --allow-empty -m "Initial commit"'
 alias grc="git branch --merged | grep -v '\*' | grep -v master | grep -v stage | xargs -n 1 git branch -d"
 alias grcr="git fetch --all -p && git branch -r --merged | grep -v '\*' | grep origin | grep -v master | grep -v stage | sed 's/origin\//:/' | xargs -n 1 echo git push origin"
 
+alias lg="lazygit"
+
 krak () {
     dir="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
     open gitkraken://repo/$dir
