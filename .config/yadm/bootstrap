@@ -46,7 +46,7 @@ if [ "$system_type" = "Linux" ]; then
   # Install apt stuff
   sudo apt update -y
   sudo apt upgrade -y
-  sudo apt install -y zsh software-properties-common python-dev python3-dev python3-pip urlview apt-transport-https
+  sudo apt install -y zsh software-properties-common python-dev python3-dev python3-pip urlview apt-transport-https keychain
 
   # Install node if necessary
   if ! command -v node >/dev/null 2>&1; then
