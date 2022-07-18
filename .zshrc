@@ -1,3 +1,6 @@
+export PATH="${PATH}:${HOME}/.local/bin"
+
+
 # zmodload zsh/zprof
 ZSH_DISABLE_COMPFIX=true
 setopt HIST_IGNORE_SPACE
@@ -74,7 +77,7 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git fzf aws vscode sudo dash zsh-z zsh-syntax-highlighting)
+plugins=(vi-mode git fzf aws vscode dash fasd thefuck zsh-syntax-highlighting jq forgit)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -111,3 +114,6 @@ source $ZSH/oh-my-zsh.sh
 source <("/usr/local/bin/starship" init zsh --print-full-init)
 
 # zprof
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

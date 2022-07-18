@@ -1,5 +1,5 @@
 export PATH=/home/ted/.fnm:$PATH
-eval "`fnm env`"
+eval "$(fnm env --use-on-cd)"
 
 autoload -U add-zsh-hook
 _fnm_autoload_hook () {

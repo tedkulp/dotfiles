@@ -1,16 +1,33 @@
 alias ghm='git push heroku master'
 alias gpp='git pull origin "(git_current_branch)" && git push origin "(git_current_branch)"'
+alias gfap='git pull --all -p'
+
+function gctest () {
+  local branch="${1:-master}"
+
+  git merge --no-commit --no-ff $1
+  git merge --abort
+}
 
 function grcl () {
     local branch="${1:-master}"
 
-    echo git checkout $branch
-    echo git pull
-    echo git remote prune origin
-    echo git branch -avv | grep "gone]" | awk '{ print $1 }' | xargs git branch -d;
+    git checkout $branch
+    gfap
+    git remote prune origin
+    git branch -avv | grep "gone]" | awk '{ print $1 }' | xargs git branch -d;
 }
 
-alias gie='git init && git commit --allow-empty -m "Initial commit"'
+unset gie
+function gie () {
+  local email="${1:-ted@tedkulp.com}"
+
+  git init
+  git config user.email "$email"
+  git commit --allow-empty -m "Initial Commit"
+}
+
+# alias gie='git init && git commit --allow-empty -m "Initial commit"'
 
 # alias __git-checkout_main=_git_checkout
 # compdef _git grcl=git-checkout
