@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 -- lvim.format_on_save = true
-lvim.colorscheme = "dracula"
+lvim.colorscheme = "tokyonight"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 vim.opt.clipboard = "unnamed,unnamedplus"
@@ -25,7 +25,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.format_on_save = {
   timeout = 5000,
 }
-lvim.builtin.lualine.style = "default"
+lvim.builtin.lualine.options.theme = "tokyonight"
 
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
@@ -180,6 +180,9 @@ lvim.plugins = {
     "dracula/vim",
   },
   {
+    "folke/tokyonight.nvim",
+  },
+  {
     "tpope/vim-surround",
     keys = { "c", "d", "y" },
   },
@@ -312,6 +315,12 @@ lvim.plugins = {
       }
     end,
   },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  }
 }
 
 -- set additional formatters
