@@ -17,6 +17,7 @@ lvim.colorscheme = "tokyonight"
 vim.opt.clipboard = "unnamed,unnamedplus"
 -- vim.opt.list = true
 -- vim.opt.listchars:append("eol:↴")
+vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h12"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -61,6 +62,23 @@ lvim.builtin.which_key.mappings["t"] = {
   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
+}
+
+lvim.builtin.which_key.mappings['lC'] = {
+  name = "+Convert Case",
+  c = { "<cmd>CamelToHyphen!<cr>", "Camel => Kebab/Hyphen" },
+  C = { "<cmd>CamelToSnake!<cr>", "Camel => Snake" },
+  h = { "<cmd>HyphenToCamel!<cr>", "Kebab/Hyphen => Camel" },
+  H = { "<cmd>HyphenToSnake!<cr>", "Kebab/Hyphen => Snake" },
+  s = { "<cmd>SnakeToCamel!<cr>", "Snake => Camel" },
+  S = { "<cmd>SnakeToHyphen!<cr>", "Snake => Kebab/Hyphen" },
+}
+
+lvim.builtin.which_key.mappings['w'] = {
+  name = "+Window",
+  s = { "<cmd>split<cr>", "Split Horizontal" },
+  v = { "<cmd>vsplit<cr>", "Split Vertical" },
+  c = { "<cmd>close<cr>", "Close Window" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -177,14 +195,22 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 lvim.plugins = {
   {
-    "dracula/vim",
-  },
-  {
     "folke/tokyonight.nvim",
   },
   {
-    "tpope/vim-surround",
-    keys = { "c", "d", "y" },
+    "chiedo/vim-case-convert"
+  },
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        delimiters = {
+          invalid_key_behavior = function(char)
+            return { char, char }
+          end
+        },
+      })
+    end
   },
   {
     "andymass/vim-matchup",
@@ -203,6 +229,58 @@ lvim.plugins = {
         },
       })
     end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    event = "BufRead",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["aC"] = "@conditional.outer",
+              ["iC"] = "@conditional.inner",
+            },
+          },
+          swap = {
+            enable = true,
+            swap_next = {
+              ["ga"] = "@parameter.inner",
+            },
+            swap_previous = {
+              ["gA"] = "@parameter.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+          },
+        },
+      })
+    end,
+
   },
   {
     "tpope/vim-repeat"
@@ -238,10 +316,25 @@ lvim.plugins = {
     end,
   },
   {
-    "ggandor/leap.nvim",
+    "phaazon/hop.nvim",
     event = "BufRead",
+    branch = "v2",
     config = function()
-      require("leap").set_default_keymaps()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "f",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
+        , { silent = true })
+      vim.api.nvim_set_keymap("n", "F",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
+        , { silent = true })
+      vim.api.nvim_set_keymap("n", "t",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
+        , { silent = true })
+      vim.api.nvim_set_keymap("n", "T",
+        "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
+        , { silent = true })
     end,
   },
   {
@@ -320,7 +413,22 @@ lvim.plugins = {
     config = function()
       require("lsp_lines").setup()
     end,
-  }
+  },
+  {
+    "chaoren/vim-wordmotion",
+    config = function()
+      vim.cmd("let g:wordmotion_prefix = ','")
+    end,
+  },
+  {
+    "christianrondeau/vim-base64"
+  },
+  {
+    'b0o/incline.nvim',
+    config = function()
+      require('incline').setup()
+    end,
+  },
 }
 
 -- set additional formatters
@@ -387,6 +495,18 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "project")
 end
 
+function Toggle_lsp_lines()
+  local flag = not vim.diagnostic.config().virtual_lines
+  print("LSP lines has been " .. (flag and "enabled" or "disabled"))
+  vim.diagnostic.config { virtual_lines = flag, virtual_text = not flag }
+end
+
+vim.diagnostic.config({
+  virtual_text = false,
+  virtual_lines = true,
+})
+
 lvim.builtin.which_key.mappings["P"] = { "<cmd>lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
   "Projects" }
-lvim.builtin.which_key.mappings['`'] = { ":edit #<CR>", "Last Buffer" }
+lvim.builtin.which_key.mappings["`"] = { ":edit #<CR>", "Last Buffer" }
+lvim.builtin.which_key.mappings["lT"] = { "<cmd>lua Toggle_lsp_lines()<cr>", "Toggle LSP Lines" }
