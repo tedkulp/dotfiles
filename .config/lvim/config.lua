@@ -23,6 +23,7 @@ vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h12"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.builtin.which_key.mappings['W'] = { ":w<cr>", "Save Buffer" }
 lvim.format_on_save = {
   timeout = 5000,
 }
@@ -62,16 +63,6 @@ lvim.builtin.which_key.mappings["t"] = {
   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
-}
-
-lvim.builtin.which_key.mappings['lC'] = {
-  name = "+Convert Case",
-  c = { "<cmd>CamelToHyphen!<cr>", "Camel => Kebab/Hyphen" },
-  C = { "<cmd>CamelToSnake!<cr>", "Camel => Snake" },
-  h = { "<cmd>HyphenToCamel!<cr>", "Kebab/Hyphen => Camel" },
-  H = { "<cmd>HyphenToSnake!<cr>", "Kebab/Hyphen => Snake" },
-  s = { "<cmd>SnakeToCamel!<cr>", "Snake => Camel" },
-  S = { "<cmd>SnakeToHyphen!<cr>", "Snake => Kebab/Hyphen" },
 }
 
 lvim.builtin.which_key.mappings['w'] = {
@@ -421,7 +412,7 @@ lvim.plugins = {
     end,
   },
   {
-    "christianrondeau/vim-base64"
+    'taybart/b64.nvim',
   },
   {
     'b0o/incline.nvim',
@@ -429,7 +420,20 @@ lvim.plugins = {
       require('incline').setup()
     end,
   },
+  {
+    "stevearc/dressing.nvim",
+  },
+  {
+    "ziontee113/icon-picker.nvim",
+    config = function()
+      require("icon-picker")
+
+      vim.keymap.set("n", "<Leader><Leader>i", "<cmd>PickEverything<cr>", { noremap = true, silent = true })
+      vim.keymap.set("i", "<A-i>", "<cmd>PickEverythingInsert<cr>", { noremap = true, silent = true }) -- opt-i on Mac
+    end,
+  },
 }
+
 
 -- set additional formatters
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -510,3 +514,26 @@ lvim.builtin.which_key.mappings["P"] = { "<cmd>lua require'telescope'.extensions
   "Projects" }
 lvim.builtin.which_key.mappings["`"] = { ":edit #<CR>", "Last Buffer" }
 lvim.builtin.which_key.mappings["lT"] = { "<cmd>lua Toggle_lsp_lines()<cr>", "Toggle LSP Lines" }
+
+lvim.builtin.which_key.mappings["u"] = {
+  name = "+Text Utils",
+  e = { "<cmd>PickEverything<cr>", "Insert Emoji/Char" },
+  c = {
+    name = "+Convert Case",
+    c = { "<cmd>CamelToHyphen!<cr>", "Camel => Kebab/Hyphen" },
+    C = { "<cmd>CamelToSnake!<cr>", "Camel => Snake" },
+    h = { "<cmd>HyphenToCamel!<cr>", "Kebab/Hyphen => Camel" },
+    H = { "<cmd>HyphenToSnake!<cr>", "Kebab/Hyphen => Snake" },
+    s = { "<cmd>SnakeToCamel!<cr>", "Snake => Camel" },
+    S = { "<cmd>SnakeToHyphen!<cr>", "Snake => Kebab/Hyphen" },
+  }
+}
+
+lvim.builtin.which_key.vmappings["u"] = {
+  name = "+Text Utils",
+  b = {
+    name = "+Base 64",
+    e = { ":<c-u>lua require('b64').encode()<cr>", "Encode Base64" },
+    d = { ":<c-u>lua require('b64').decode()<cr>", "Decode Base64" },
+  }
+}
