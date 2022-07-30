@@ -1,12 +1,4 @@
---[[
-lvim is the global options object
-
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
-]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+local utils = require "lvim.utils"
 
 -- general
 lvim.log.level = "warn"
@@ -34,6 +26,11 @@ lvim.builtin.lualine.options.theme = "tokyonight"
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
 vim.keymap.set("n", "<f1>", "<nop>")
+vim.keymap.set("i", "jj", "<nop>")
+vim.keymap.set("i", "jk", "<nop>")
+vim.keymap.set("i", "kj", "<nop>")
+vim.opt.cursorline = true
+vim.opt.relativenumber = true
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -413,7 +410,10 @@ lvim.plugins = {
     end,
   },
   {
-    'taybart/b64.nvim',
+    'christianrondeau/vim-base64',
+    config = function()
+      vim.cmd("let g:vim_base64_disable_default_key_mappings = 1")
+    end
   },
   {
     'b0o/incline.nvim',
@@ -429,12 +429,14 @@ lvim.plugins = {
     config = function()
       require("icon-picker")
 
-      vim.keymap.set("n", "<Leader><Leader>i", "<cmd>PickEverything<cr>", { noremap = true, silent = true })
       vim.keymap.set("i", "<A-i>", "<cmd>PickEverythingInsert<cr>", { noremap = true, silent = true }) -- opt-i on Mac
     end,
   },
 }
 
+-- luasnip jumps
+vim.keymap.set("i", "<c-;>", "<cmd>lua require('luasnip').jump(1)<cr>", { noremap = true, silent = true })
+vim.keymap.set("i", "<c-l>", "<cmd>lua require('luasnip').jump(-1)<cr>", { noremap = true, silent = true })
 
 -- set additional formatters
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -466,6 +468,16 @@ linters.setup {
   },
 }
 
+local dirs_to_include = { "~/src", "~/src/tmp", "~/src/omuras/code", "~/org" }
+local base_dirs = {}
+
+for _, the_dir in ipairs(dirs_to_include) do
+  the_dir = string.gsub(the_dir, "~", os.getenv("HOME") or '')
+  if utils.is_directory(the_dir) then
+    table.insert(base_dirs, { path = the_dir })
+  end
+end
+
 lvim.builtin.telescope.on_config_done = function(telescope)
   telescope.setup {
     pickers = {
@@ -482,15 +494,7 @@ lvim.builtin.telescope.on_config_done = function(telescope)
     },
     extensions = {
       project = {
-        base_dirs = {
-          -- {path = '~/src', max_depth = 1},
-          -- {path = '~/src/tmp', max_depth = 1},
-          -- {path = '~/src/omuras/code', max_depth = 1},
-          { path = '~/src' },
-          { path = '~/src/tmp' },
-          { path = '~/src/omuras/code' },
-          { path = '~/org' },
-        },
+        base_dirs = base_dirs,
         hidden_files = true,
       }
     }
@@ -534,7 +538,7 @@ lvim.builtin.which_key.vmappings["u"] = {
   name = "+Text Utils",
   b = {
     name = "+Base 64",
-    e = { ":<c-u>lua require('b64').encode()<cr>", "Encode Base64" },
-    d = { ":<c-u>lua require('b64').decode()<cr>", "Decode Base64" },
+    e = { ":<c-u>call base64#v_btoa()<cr>", "Base64 Encode", noremap = true, silent = true },
+    d = { ":<c-u>call base64#v_atob()<cr>", "Base64 Decode", noremap = true, silent = true },
   }
 }
