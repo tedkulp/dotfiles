@@ -99,9 +99,6 @@ lvim.plugins = {
     end,
   },
   {
-    "chiedo/vim-case-convert"
-  },
-  {
     "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({
@@ -184,6 +181,9 @@ lvim.plugins = {
   },
   {
     "tpope/vim-repeat"
+  },
+  {
+    "tpope/vim-abolish",
   },
   {
     "vladdoster/remember.nvim",
@@ -461,15 +461,6 @@ lvim.builtin.which_key.mappings["lT"] = { "<cmd>lua Toggle_lsp_lines()<cr>", "To
 lvim.builtin.which_key.mappings["u"] = {
   name = "+Text Utils",
   e = { "<cmd>PickEverything<cr>", "Insert Emoji/Char" },
-  c = {
-    name = "+Convert Case",
-    c = { "<cmd>CamelToHyphen!<cr>", "Camel => Kebab/Hyphen" },
-    C = { "<cmd>CamelToSnake!<cr>", "Camel => Snake" },
-    h = { "<cmd>HyphenToCamel!<cr>", "Kebab/Hyphen => Camel" },
-    H = { "<cmd>HyphenToSnake!<cr>", "Kebab/Hyphen => Snake" },
-    s = { "<cmd>SnakeToCamel!<cr>", "Snake => Camel" },
-    S = { "<cmd>SnakeToHyphen!<cr>", "Snake => Kebab/Hyphen" },
-  }
 }
 
 lvim.builtin.which_key.vmappings["u"] = {
@@ -480,3 +471,23 @@ lvim.builtin.which_key.vmappings["u"] = {
     d = { ":<c-u>call base64#v_atob()<cr>", "Base64 Decode", noremap = true, silent = true },
   }
 }
+
+local wk = require('which-key')
+wk.register({
+  c = {
+    r = {
+      name = 'Coerce Case',
+      c = { "camelCase" },
+      m = { "MixedCase" },
+      ['_'] = { "snake_case" },
+      s = { "snake_case" },
+      u = { "SNAKE_UPPERCASE" },
+      U = { "SNAKE_UPPERCASE" },
+      ['-'] = { "dash-case" },
+      k = { "kebab-case" },
+      ['.'] = { "dot.case" },
+      [' '] = { "space case" },
+      t = { "Title Case" },
+    },
+  },
+}, { prefix = nil, mode = 'n', nowait = true })
