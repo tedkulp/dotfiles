@@ -4,6 +4,7 @@ lvim.log.level = "warn"
 lvim.colorscheme = "dracula"
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h12"
+vim.opt.timeoutlen = 50
 
 lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
@@ -15,6 +16,8 @@ lvim.builtin.lualine.options.theme = "dracula-nvim"
 lvim.builtin.bufferline.options.show_buffer_close_icons = false
 lvim.builtin.bufferline.options.numbers = "buffer_id"
 lvim.builtin.bufferline.options.separator_style = "slant"
+
+lvim.lsp.automatic_servers_installation = false
 
 vim.keymap.set("n", "<f1>", "<nop>")
 vim.keymap.set("i", "jj", "<nop>")
@@ -357,24 +360,97 @@ lvim.plugins = {
     end,
     requires = "nvim-lua/plenary.nvim",
   },
+  {
+    "renerocksai/telekasten.nvim",
+    config = function()
+      local home = vim.fn.expand("~/zk")
+      require('telekasten').setup({
+        home              = home,
+        dailies           = home .. '/' .. 'daily',
+        weeklies          = home .. '/' .. 'weekly',
+        templates         = home .. '/' .. 'templates',
+        image_subdir      = "img",
+        extension         = ".norg",
+        new_note_filename = "uuid-title",
+        auto_set_filetype = false,
+      })
+
+      lvim.builtin.which_key.mappings["Z"] = {
+        name = "+Telekasten",
+        f = { "<cmd>lua require('telekasten').find_notes()<cr>", "Find Notes" },
+        g = { "<cmd>lua require('telekasten').search_notes()<cr>", "Search Notes" },
+        T = { "<cmd>lua require('telekasten').goto_today()<cr>", "Goto Today" },
+        W = { "<cmd>lua require('telekasten').goto_thisweek()<cr>", "Goto This Week" },
+        n = { "<cmd>lua require('telekasten').new_note()<cr>", "New Note" },
+        m = { "<cmd>lua require('telekasten').panel()<cr>", "Menu" },
+      }
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+    "AckslD/nvim-neoclip.lua",
+    requires = {
+      { 'kkharji/sqlite.lua', module = 'sqlite' },
+    },
+    config = function()
+      require('neoclip').setup({
+        keys = {
+          telescope = {
+            i = {
+              select = '<cr>',
+              paste = '<c-p>',
+              paste_behind = '<c-o>',
+              replay = '<c-q>', -- replay a macro
+              delete = '<c-d>', -- delete an entry
+              custom = {},
+            },
+            n = {
+              select = '<cr>',
+              paste = 'p',
+              --- It is possible to map to more than one key.
+              -- paste = { 'p', '<c-p>' },
+              paste_behind = 'P',
+              replay = 'q',
+              delete = 'd',
+              custom = {},
+            },
+          }
+        }
+      })
+
+      vim.keymap.set("i", "<c-o>", "<cmd>lua require('telescope').extensions.neoclip.default()<cr>",
+        { noremap = true, silent = true })
+    end,
+  },
+  {
+    'chentoast/marks.nvim',
+    config = function()
+      require('marks').setup({
+        default_mappings = true,
+        mappings = {
+          set = false,
+          set_next = false,
+          toggle = false,
+          next = false,
+          prev = false,
+          delete_line = false,
+          delete_buffer = false,
+        }
+      })
+    end,
+  },
 }
 
 -- luasnip jumps
 vim.keymap.set("i", "<c-;>", "<cmd>lua require('luasnip').jump(1)<cr>", { noremap = true, silent = true })
 vim.keymap.set("i", "<c-l>", "<cmd>lua require('luasnip').jump(-1)<cr>", { noremap = true, silent = true })
-
-function Dump(o)
-  if type(o) == 'table' then
-    local s = '{ '
-    for k, v in pairs(o) do
-      if type(k) ~= 'number' then k = '"' .. k .. '"' end
-      s = s .. '[' .. k .. '] = ' .. Dump(v) .. ','
-    end
-    return s .. '} '
-  else
-    return tostring(o)
-  end
-end
 
 -- set additional formatters
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -438,8 +514,9 @@ lvim.builtin.telescope.on_config_done = function(telescope)
     }
   }
 
-  pcall(telescope.load_extension, "file-browser")
+  pcall(telescope.load_extension, "file_browser")
   pcall(telescope.load_extension, "project")
+  pcall(telescope.load_extension, "neoclip")
 end
 
 function Toggle_lsp_lines()
@@ -461,6 +538,7 @@ lvim.builtin.which_key.mappings["lT"] = { "<cmd>lua Toggle_lsp_lines()<cr>", "To
 lvim.builtin.which_key.mappings["u"] = {
   name = "+Text Utils",
   e = { "<cmd>PickEverything<cr>", "Insert Emoji/Char" },
+  p = { ":lua require('telescope').extensions.neoclip.default()<cr>", "Neoclip" },
 }
 
 lvim.builtin.which_key.vmappings["u"] = {
@@ -472,22 +550,37 @@ lvim.builtin.which_key.vmappings["u"] = {
   }
 }
 
-local wk = require('which-key')
-wk.register({
-  c = {
-    r = {
-      name = 'Coerce Case',
-      c = { "camelCase" },
-      m = { "MixedCase" },
-      ['_'] = { "snake_case" },
-      s = { "snake_case" },
-      u = { "SNAKE_UPPERCASE" },
-      U = { "SNAKE_UPPERCASE" },
-      ['-'] = { "dash-case" },
-      k = { "kebab-case" },
-      ['.'] = { "dot.case" },
-      [' '] = { "space case" },
-      t = { "Title Case" },
+-- Place to register which key mappings on things without a leader
+lvim.builtin.which_key.on_config_done = function(wk)
+  wk.register({
+    c = {
+      r = {
+        name = 'Coerce Case',
+        c = { "camelCase" },
+        m = { "MixedCase" },
+        ['_'] = { "snake_case" },
+        s = { "snake_case" },
+        u = { "SNAKE_UPPERCASE" },
+        U = { "SNAKE_UPPERCASE" },
+        ['-'] = { "dash-case" },
+        k = { "kebab-case" },
+        ['.'] = { "dot.case" },
+        [' '] = { "space case" },
+        t = { "Title Case" },
+      },
     },
-  },
-}, { prefix = nil, mode = 'n', nowait = true })
+    m = {
+      name = 'Marks',
+      [','] = { ":lua require('marks').set_next()<cr>", "Set Next Mark" },
+      [';'] = { ":lua require('marks').toggle()<cr>", "Toogle Mark" },
+      [']'] = { ":lua require('marks').next()<cr>", "Goto Next Mark" },
+      ['['] = { ":lua require('marks').prev()<cr>", "Goto Previous Mark" },
+    },
+    d = {
+      m = {
+        ['-'] = { ":lua require('marks').delete_line()<cr>", "Delete Marks on Line" },
+        [' '] = { ":lua require('marks').delete_buf()<cr>", "Delete Marks in Buffer" },
+      }
+    }
+  }, { prefix = nil, mode = 'n', nowait = true, noremap = true })
+end
