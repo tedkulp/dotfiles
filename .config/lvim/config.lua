@@ -1,7 +1,7 @@
 local utils = require "lvim.utils"
 
 lvim.log.level = "warn"
-lvim.colorscheme = "dracula"
+lvim.colorscheme = "catppuccin"
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.guifont = "JetBrainsMono Nerd Font Mono:h12"
 vim.opt.timeoutlen = 50
@@ -12,7 +12,7 @@ lvim.builtin.which_key.mappings['W'] = { ":w<cr>", "Save Buffer" }
 lvim.format_on_save = {
   timeout = 5000,
 }
-lvim.builtin.lualine.options.theme = "dracula-nvim"
+lvim.builtin.lualine.options.theme = "catppuccin"
 lvim.builtin.bufferline.options.show_buffer_close_icons = false
 lvim.builtin.bufferline.options.numbers = "buffer_id"
 lvim.builtin.bufferline.options.separator_style = "slant"
@@ -95,20 +95,45 @@ lvim.plugins = {
     "lunarvim/horizon.nvim",
   },
   {
+    "luisiacc/gruvbox-baby",
+    branch = "main",
+    config = function()
+      vim.g.gruvbox_baby_telescope_theme = 1
+      vim.g.gruvbox_baby_transparent_mode = 0
+    end,
+  },
+  {
     "Mofiqul/dracula.nvim",
     config = function()
       vim.g.dracula_show_end_of_buffer = true
       vim.g.dracula_italic_comment = true
     end,
   },
+  { "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require('catppuccin').setup({
+        dim_inactive = {
+          enabled = true,
+        },
+        integrations = {
+          which_key = true,
+          indent_blankline = {
+            colored_indent_levels = true,
+          },
+          hop = true,
+        }
+      })
+    end,
+  },
   {
     "kylechui/nvim-surround",
     config = function()
       require("nvim-surround").setup({
-        delimiters = {
-          invalid_key_behavior = function(char)
-            return { char, char }
-          end
+        surrounds = {
+          -- invalid_key_behavior = function(char)
+          --   return { char, char }
+          -- end
         },
       })
     end
@@ -444,6 +469,7 @@ lvim.plugins = {
           delete_buffer = false,
         }
       })
+      vim.keymap.set("n", "<c-'>", "<cmd>Telescope marks<cr>", { noremap = true, silent = true })
     end,
   },
 }
