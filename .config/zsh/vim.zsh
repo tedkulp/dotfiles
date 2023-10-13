@@ -7,3 +7,4 @@ else
 fi
 
 export EDITOR="nvim"
+alias nvim="nvm use v16 && /Users/tedkulp/.asdf/shims/nvim"

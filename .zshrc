@@ -1,5 +1,8 @@
-export PATH="${PATH}:${HOME}/.local/bin"
+# zmodload zsh/zprof
 
+export PATH="${PATH}:${HOME}/.local/bin"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export ENHANCD_FILTER=fzy:fzf:peco
 
 # zmodload zsh/zprof
 ZSH_DISABLE_COMPFIX=true
@@ -8,7 +11,8 @@ setopt HIST_IGNORE_SPACE
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+#export ZSH="$HOME/.oh-my-zsh"
+export ZSH="${HOME}/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -77,9 +81,10 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(vi-mode git fzf aws vscode dash zoxide thefuck zsh-syntax-highlighting jq forgit)
+# plugins=(vi-mode git fzf aws vscode dash zoxide thefuck zsh-syntax-highlighting jq forgit)
+plugins=(vi-mode git fzf aws dash zoxide zsh-syntax-highlighting jq sd)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -111,9 +116,17 @@ source $ZSH/oh-my-zsh.sh
 # uninstall by removing these lines
 # [ -f ~/.config/tabtab/__tabtab.fish ]; and . ~/.config/tabtab/__tabtab.fish; or true
 
+eval "$(sheldon source)"
 source <("/usr/local/bin/starship" init zsh --print-full-init)
 
 # zprof
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# zprof
+
+# pnpm
+export PNPM_HOME="/Users/tedkulp/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
