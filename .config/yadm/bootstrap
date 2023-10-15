@@ -1,17 +1,18 @@
 #!/bin/bash
 
-cd $HOME 
+cd $HOME
 
 # What are we packing?
 system_type=$(uname -s)
 
-# Install submodules
-echo "Init submodules"
-yadm submodule update --recursive --init
+# Because submodules suck...
+git clone https://github.com/gpakosz/.tmux.git $HOME/.tmux
+mkdir -p $HOME/.config
+git clone git@github.com:tedkulp/lazyvim $HOME/.config/nvim
 
 # Link in our tmux config
 if [ ! -f "$HOME/.tmux.conf" ]; then
-  ln -s -f .tmux/.tmux.conf
+	ln -s -f .tmux/.tmux.conf
 fi
 
 # Wrapping up
