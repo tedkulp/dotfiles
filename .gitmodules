@@ -3,4 +3,4 @@
 	url = https://github.com/gpakosz/.tmux.git
 [submodule ".config/nvim"]
 	path = .config/nvim
-	url = git@github.com:tedkulp/nvim
+	url = git@github.com:tedkulp/lazyvim
