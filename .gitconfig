@@ -13,3 +13,5 @@
 	forceSignAnnotated = true
 [alias]
 	mdr = merge --no-commit --no-ff
+[init]
+	defaultBranch = main
