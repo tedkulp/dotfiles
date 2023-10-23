@@ -3,13 +3,13 @@ function p () {
 
   if [ -n "$pager" ]; then
     if command -v "$pager" &>/dev/null; then
-      $PAGER
+      $PAGER "$@"
     fi
   else
     if command -v less &>/dev/null; then
-      less -R
+      less -R "$@"
     else
-      cat
+      cat "$@"
     fi
   fi
 }
