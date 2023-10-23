@@ -10,6 +10,9 @@
 {% endif %}
 
 {% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
+[core]
+  commentChar = @
+
 [gpg]
   format = ssh
 
