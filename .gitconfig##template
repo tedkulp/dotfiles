@@ -1,0 +1,36 @@
+[user]
+  name = Ted Kulp
+{% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
+  email = ted@allocate.co
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsv4Cz+g1q93ifvEhSyMgE6mWiKacoLRKyHgWC7Vey7
+{% else %}
+  email = ted@tedkulp.com
+  gmail = tedkulp@gmail.com
+  signingKey = AE6B007E2FAB1C94319C7C09FD56BE79CDAE7895
+{% endif %}
+
+{% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{% endif %}
+
+[commit]
+  gpgsign = true
+
+[credential]
+  helper = osxkeychain
+
+[pull]
+ rebase = false
+
+[tag]
+  forceSignAnnotated = true
+
+[alias]
+  mdr = merge --no-commit --no-ff
+
+[init]
+  defaultBranch = main
