@@ -13,3 +13,5 @@ function p () {
     fi
   fi
 }
+
+alias pl="p -l"
