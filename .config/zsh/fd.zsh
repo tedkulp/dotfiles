@@ -1,0 +1,1 @@
+alias fda="fd -HI"
