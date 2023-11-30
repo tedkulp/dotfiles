@@ -34,6 +34,9 @@
 
 [alias]
   mdr = merge --no-commit --no-ff
+  dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }'"
+  delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -d"
+  force-delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
 
 [init]
   defaultBranch = main
