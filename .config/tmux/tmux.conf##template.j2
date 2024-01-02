@@ -53,8 +53,11 @@ set -g @plugin 'sainnhe/tmux-fzf'                   # prefix + F
 set -g @plugin 'tmux-plugins/tmux-urlview'          # prefix + u
 set -g @plugin 'tmux-plugins/tmux-yank'             # prefix + y
 
-
+{% if YADM_OS == "Darwin" %}
+run '/opt/homebrew/opt/tpm/share/tpm/tpm'
+{% else -%}
 run '~/.tmux/plugins/tpm/tpm'
+{% endif %}
 
 # set vi-mode
 set-window-option -g status-keys vi
