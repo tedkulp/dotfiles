@@ -4,7 +4,7 @@ return {
 	-- window_background_opacity = 1,
 	window_background_opacity = 1,
 	color_scheme = "Catppuccin Mocha",
-	font = wezterm.font("Iosevka Nerd Font", { weight = "DemiBold", stretch = "Normal", style = "Normal" }),
+	font = wezterm.font("Iosevka NFP", { weight = "DemiBold", stretch = "Normal", style = "Normal" }),
 	font_size = 14,
 	freetype_load_target = "Light",
 	freetype_render_target = "Normal",
