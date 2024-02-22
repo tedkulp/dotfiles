@@ -1,5 +1,0 @@
-alias r="rg"
-alias ri="rg --ignore-case"
-alias ra="rg --hidden --no-ignore"
-alias ria="rg --hidden --no-ignore --ignore-case"
-alias rai="rg --hidden --no-ignore --ignore-case"
