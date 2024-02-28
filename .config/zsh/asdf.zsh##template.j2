@@ -18,7 +18,7 @@ export KERL_CONFIGURE_OPTIONS="$KERL_CONFIGURE_OPTIONS --enable-darwin-64bit"
 {% endif -%}
 
 # export CXXFLAGS="-ffat-lto-objects"
-export CFLAGS="-ffat-lto-objects"
+export CFLAGS="-O2 -ffat-lto-objects"
 export LDFLAGS=""
 
 if which brew > /dev/null; then
