@@ -18,6 +18,7 @@
 
 [gpg "ssh"]
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+	allowedSignersFile = /Users/tedkulp/.ssh/allowed_signers
 {% endif %}
 
 [commit]
