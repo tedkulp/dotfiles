@@ -15,7 +15,7 @@ function p () {
 }
 
 alias pl="p -l"
-alias jqp="jq . | p -l json"
-alias yqp="yq . | p -l yaml"
+# alias jqp="jq . | p -l json"
+#alias yqp="yq . | p -l yaml"
 alias pjq="jq . | p -l json"
 alias pyq="yq . | p -l yaml"

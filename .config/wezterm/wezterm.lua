@@ -2,12 +2,15 @@ local wezterm = require("wezterm")
 
 return {
 	-- window_background_opacity = 1,
-	window_background_opacity = 1,
+	window_background_opacity = 0.95,
+	macos_window_background_blur = 10,
+	window_decorations = "RESIZE",
 	color_scheme = "Catppuccin Mocha",
 	font = wezterm.font("Iosevka NFP", { weight = "DemiBold", stretch = "Normal", style = "Normal" }),
 	font_size = 14,
 	freetype_load_target = "Light",
-	freetype_render_target = "Normal",
+	freetype_load_flags = "DEFAULT",
+	freetype_render_target = "Light",
 	hide_tab_bar_if_only_one_tab = true,
 	inactive_pane_hsb = {
 		hue = 5.0,
