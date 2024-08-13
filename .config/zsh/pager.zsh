@@ -3,7 +3,7 @@ function p () {
 
   if [ -n "$pager" ]; then
     if command -v "$pager" &>/dev/null; then
-      $PAGER "$@"
+      BAT_STYLE=grid,numbers,snip,changes $PAGER "$@"
     fi
   else
     if command -v less &>/dev/null; then
