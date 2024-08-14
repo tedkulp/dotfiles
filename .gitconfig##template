@@ -12,6 +12,7 @@
 {% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
 [core]
   commentChar = @
+  pager = delta
 
 [gpg]
   format = ssh
@@ -19,6 +20,9 @@
 [gpg "ssh"]
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 	allowedSignersFile = /Users/tedkulp/.ssh/allowed_signers
+{% else -%}
+[core]
+  pager = delta
 {% endif %}
 
 [commit]
@@ -49,3 +53,16 @@
 
 [push]
   autoSetupRemote = true
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  dark = true
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
