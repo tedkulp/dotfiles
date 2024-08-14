@@ -77,6 +77,74 @@ outer.right = 7
 8 = ['secondary', 'main']
 9 = ['secondary', 'main']
 
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Automator'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.shortcuts'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.kapeli.dashdoc'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.agiletortoise.Drafts-OSX'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.bjango.istatmenus'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.symless.synergy'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'io.tailscale.ipn.macsys'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.tapbots.ivory'
+run = ['layout floating']
+if.window-title-regex-substring = '(settings|ivory|compose)'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.raycast.macos'
+run = ['layout floating']
+if.window-title-regex-substring = '.*settings.*'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'cc.ffitch.shottr'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.lihaoyun6.QuickRecorder'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'app.soulver.appstore.mac'
+run = ['layout floating']
+
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
@@ -126,8 +194,8 @@ alt-ctrl-shift-l = 'move right'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
-alt-ctrl-shift-m = 'workspace --wrap-around next'
-alt-ctrl-shift-n = 'workspace --wrap-around prev'
+alt-ctrl-shift-m = 'workspace next'
+alt-ctrl-shift-n = 'workspace prev'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-shift-1 = 'workspace 1'
