@@ -1,6 +1,7 @@
 alias ghm='git push heroku master'
 alias gpp='git pull origin "(git_current_branch)" && git push origin "(git_current_branch)"'
 alias gfap='git pull --all -p'
+alias ly='lazygit --use-config-file "$HOME/.config/yadm/lazygit.yml,$HOME/Library/Application Support/lazygit/config.yml" --work-tree ~ --git-dir ~/.local/share/yadm/repo.git'
 
 function gctest () {
   local branch="${1:-master}"
