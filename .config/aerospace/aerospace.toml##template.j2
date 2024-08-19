@@ -16,10 +16,12 @@ after-startup-command = [
   # JankyBorders has a built-in detection of already running process,
   # so it won't be run twice on AeroSpace restart
   'exec-and-forget borders',
+{% if YADM_HOSTNAME != "ALLOCATE-Y3HW9MWW2D" -%}
+    'exec-and-forget sketchybar',
+{% endif -%}
 ]
 
-{% if YADM_HOSTNAME == "ALLOCATE-Y3HW9MWW2D" -%}
-{% else -%}
+{% if YADM_HOSTNAME != "ALLOCATE-Y3HW9MWW2D" -%}
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = [
   '/bin/bash',
@@ -194,8 +196,13 @@ alt-ctrl-shift-l = 'move right'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
+# Switch workspaces
 alt-ctrl-shift-m = 'workspace next'
 alt-ctrl-shift-n = 'workspace prev'
+
+# Focus/move to other monitor
+alt-shift-p = 'focus-monitor --wrap-around next'
+alt-ctrl-shift-p = 'move-node-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
 alt-shift-1 = 'workspace 1'
