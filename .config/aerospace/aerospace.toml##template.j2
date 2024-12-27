@@ -16,19 +16,7 @@ after-startup-command = [
   # JankyBorders has a built-in detection of already running process,
   # so it won't be run twice on AeroSpace restart
   'exec-and-forget borders',
-{% if YADM_HOSTNAME != "ALLOCATE-Y3HW9MWW2D" -%}
-    'exec-and-forget sketchybar',
-{% endif -%}
 ]
-
-{% if YADM_HOSTNAME != "ALLOCATE-Y3HW9MWW2D" -%}
-# Notify Sketchybar about workspace change
-exec-on-workspace-change = [
-  '/bin/bash',
-  '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
-]
-{% endif -%}
 
 # Start AeroSpace at login
 start-at-login = true

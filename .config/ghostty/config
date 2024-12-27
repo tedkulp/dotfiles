@@ -1,0 +1,25 @@
+#~~~~~~~~~~~~~~~~~~~~~~~#
+# Ghostty configuration #
+#~~~~~~~~~~~~~~~~~~~~~~~#
+
+# vim: set filetype=dosini:
+
+theme = catppuccin-mocha
+font-family = "Iosevka NFM"
+font-thicken = false
+font-size = 14
+# macos-option-as-alt = true
+bold-is-bright = false
+clipboard-read = allow
+clipboard-write = allow
+window-colorspace = srgb
+background-blur-radius = 20
+background-opacity = 0.95
+# custom-shader = ./shaders/bettercrt.glsl
+# custom-shader = ./shaders/tft.glsl
+# custom-shader = ./shaders/glitchy.glsl
+# custom-shader-animation = true
+
+# Keyboard
+macos-option-as-alt = true
+keybind = global:ctrl+shift+grave_accent=toggle_quick_terminal
