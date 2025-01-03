@@ -44,9 +44,9 @@
   dlb = "dead-local-branches"
   ddlb = "delete-dead-local-branches"
   fdlb = "force-delete-dead-local-branches"
-  dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }'"
-  delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -d"
-  force-delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ print $1; }' | xargs -r git branch -D"
+  dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ if ($1 == \"+\") print $2; else print $1; }'"
+  delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ if ($1 == \"+\") print $2; else print $1; }' | xargs -r git branch -d"
+  force-delete-dead-local-branches = "!git branch -vv | grep ': gone]'|  grep -v '\\*' | awk '{ if ($1 == \"+\") print $2; else print $1; }' | xargs -r git branch -D"
 
 [init]
   defaultBranch = main
