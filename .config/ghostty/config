@@ -5,8 +5,8 @@
 # vim: set filetype=dosini :
 
 font-family = "Iosevka NFM"
-font-size = 15
-font-thicken = false
+font-size = 14
+font-thicken = true
 grapheme-width-method = unicode
 freetype-load-flags = hinting,force-autohint,monochrome,autohint
 theme = "catppuccin-mocha"
@@ -18,7 +18,7 @@ cursor-click-to-move = true
 mouse-hide-while-typing = false
 mouse-shift-capture = false
 mouse-scroll-multiplier = 1
-background-opacity = .90
+background-opacity = .9
 background-blur-radius = 40
 unfocused-split-opacity = 0.2
 unfocused-split-fill =
