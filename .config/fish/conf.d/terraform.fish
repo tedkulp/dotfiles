@@ -1,0 +1,1 @@
+export TS_VERSION_CHECK=0
