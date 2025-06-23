@@ -4,7 +4,7 @@
 
 # vim: set filetype=dosini :
 
-font-family = "Iosevka NFM"
+font-family = "IosevkaTerm Nerd Font Mono"
 font-size = 14
 font-thicken = true
 grapheme-width-method = unicode
@@ -102,7 +102,7 @@ window-padding-balance = false
 window-padding-color = background
 window-vsync = true
 window-inherit-working-directory = true
-window-inherit-font-size = true
+# window-inherit-font-size = true
 window-decoration = true
 window-title-font-family =
 window-theme = auto
