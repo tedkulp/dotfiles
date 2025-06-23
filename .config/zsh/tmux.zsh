@@ -1,35 +1,64 @@
+# Aliases
 alias xssh="xpanes --ssh"
 alias tmux="tmux -2"
 
-_tm.getCurrenSession() tmux display-message -p '#S'
+# Function to get the current TMUX session
+_tm_get_current_session() {
+    tmux display-message -p '#S'
+}
 
+# Function to attach or switch to a TMUX session
 tm() {
-  local targetSession=${1:='main'}
+    local targetSession="${1:-main}"
 
-  # if outside tmux
-  [[ -z "$TMUX" ]] && tmux new -A -s ${targetSession} && return $?
+    # If outside tmux, start a new session or attach
+    if [[ -z "$TMUX" ]]; then
+        tmux new -A -s "$targetSession"
+        return $?
+    fi
 
-  if [[ "`_tm.getCurrenSession`" = "$targetSession" ]]
-    then print "You did not move."; return 1
-  fi
+    # If already in the target session, return
+    if [[ "$(_tm_get_current_session)" == "$targetSession" ]]; then
+        echo "You did not move."
+        return 1
+    fi
 
-  # Create session if it doesn't exists
-  tmux new -d -s ${targetSession} 2>/dev/null
+    # Create session if it doesn't exist
+    tmux new -d -s "$targetSession" 2>/dev/null
 
-  tmux switch-client -t ${targetSession}
+    # Switch to the target session
+    tmux switch-client -t "$targetSession"
 }
 
+# Function to complete tmux session names
 _tm() {
-  (( $CURRENT > 2 )) && return 0
+    local tmuxList
+    tmuxList=($(tmux ls -F "#{session_name}" 2>/dev/null))
 
-  local tmuxList=( `tmux ls -F "#{session_name}"` )
+    # If outside tmux, complete with session list
+    if [[ -z "$TMUX" ]]; then
+        for session in "${tmuxList[@]}"; do
+            echo "$session"
+        done
+        return 0
+    fi
 
-  # if outside tmux
-  [[ -z "$TMUX" ]] &&  _describe 'command' tmuxList && return 0
+    local currentSession actualList=()
+    currentSession="$(_tm_get_current_session)"
 
-  local currentSession=( `_tm.getCurrenSession` )
-  local actualList=(${tmuxList:|currentSession})
-  _describe 'command' actualList
+    # Exclude the current session from the list
+    for session in "${tmuxList[@]}"; do
+        if [[ "$session" != "$currentSession" ]]; then
+            actualList+=("$session")
+        fi
+    done
+
+    for session in "${actualList[@]}"; do
+        echo "$session"
+    done
 }
 
-compdef _tm tm
+# Register the function for tab completion
+if (( $+functions[compdef] )); then
+    compdef '_tm' tm
+fi

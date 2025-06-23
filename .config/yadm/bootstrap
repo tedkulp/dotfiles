@@ -12,8 +12,11 @@ git clone git@github.com:tedkulp/lazyvim $HOME/.config/nvim
 
 # Link in our tmux config
 if [ ! -f "$HOME/.tmux.conf" ]; then
-	ln -s -f .tmux/.tmux.conf
+  ln -s -f .tmux/.tmux.conf
 fi
+
+mkdir -p $HOME/.asdf/plugins/erlang/kerl-home
+cp .kerlrc $HOME/.asdf/plugins/erlang/kerl-home/.kerlrc
 
 # Wrapping up
 echo "Don't forget to run yadm decrypt!"
