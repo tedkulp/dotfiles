@@ -24,10 +24,10 @@ zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
 zinit ice wait lucid blockf
-zinit light asdf-vm/asdf
+zinit light wintermi/zsh-brew
 
 zinit ice wait lucid blockf
-zinit light wintermi/zsh-brew
+zinit snippet OMZP::asdf/asdf.plugin.zsh
 
 zinit ice wait lucid blockf
 zinit light atuinsh/atuin
@@ -40,7 +40,6 @@ zinit light ajeetdsouza/zoxide
 # fzf-tab — defer after other interactive tools
 zinit ice wait lucid blockf
 zinit light Aloxaf/fzf-tab
-
 
 # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
@@ -58,6 +57,9 @@ zi for \
     lucid \
     zsh-users/zsh-completions
 
+# uv
+export PATH="$HOME/.local/bin:$PATH"
+
 # 9. Load all custom configs from $ZSH_CUSTOM
 for config_file ("$ZSH_CUSTOM"/*.zsh(N)); do
   source "$config_file"
@@ -68,3 +70,4 @@ unset config_file
 function timezsh() {
   for i in {1..5}; do /usr/bin/time -p zsh -i -c exit; done
 }
+### End of Zinit's installer chunk
