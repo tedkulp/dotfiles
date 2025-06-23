@@ -17,3 +17,6 @@ end
 
 # uv
 fish_add_path "/Users/tedkulp/.local/bin"
+
+# Added by Windsurf
+fish_add_path /Users/tedkulp/.codeium/windsurf/bin

@@ -1,5 +1,5 @@
 # exit if not in interactive
-status is-interactive || exit
+# status is-interactive || exit
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
@@ -10,9 +10,10 @@ end
 
 # Do not use fish_add_path (added in Fish 3.2) because it
 # potentially changes the order of items in PATH
-if not contains $_asdf_shims $PATH
-    set -gx --prepend PATH $_asdf_shims
-end
+# if not contains $_asdf_shims $PATH
+#     set -gx --prepend PATH $_asdf_shims
+# end
+fish_add_path $_asdf_shims
 set --erase _asdf_shims
 
 # Export environment variables
@@ -42,6 +43,17 @@ if command -v brew >/dev/null
     if test -n "$openssl_prefix"
         set -gx CFLAGS "$CFLAGS -I$openssl_prefix/include"
         set -gx LDFLAGS "$LDFLAGS -L$openssl_prefix/lib"
+    end
+end
+
+# Save the path to the original asdf binary
+set -g ORIGINAL_ASDF (command -s asdf)
+
+function asdf
+    if [ (count $argv) -ge 1 -a "$argv[1]" = install ]
+        CFLAGS="-Wno-error=implicit-function-declaration -O2 -g -fno-stack-check" $ORIGINAL_ASDF $argv
+    else
+        $ORIGINAL_ASDF $argv
     end
 end
 
