@@ -1,4 +1,6 @@
-alias ls="eza --icons"
+zpcompdef _eza ls ll llm la lam laa lx lxa lS llt llta
+
+alias ls="eza --icons -G"
 alias ll="eza -lbF --icons --git"
 alias llm="ll --sort=modified"
 alias la="eza -lbhHigUmuSa --icons --git --color-scale --time-style=long-iso"

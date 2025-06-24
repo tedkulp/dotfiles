@@ -1,0 +1,1 @@
+zpcompdef _yadm yadm
