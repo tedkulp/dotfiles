@@ -3,6 +3,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
+
 # 2. Load Zinit
 source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 
@@ -29,8 +33,10 @@ zinit light wintermi/zsh-brew
 zinit ice wait lucid blockf
 zinit snippet OMZP::asdf/asdf.plugin.zsh
 
+export ATUIN_NOBIND="true"
 zinit ice wait lucid blockf
 zinit light atuinsh/atuin
+bindkey '^r' atuin-search
 
 zinit wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
 
@@ -40,6 +46,11 @@ zinit light ajeetdsouza/zoxide
 # fzf-tab — defer after other interactive tools
 zinit ice wait lucid blockf
 zinit light Aloxaf/fzf-tab
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-size 200 8
+
+zinit ice wait lucid blockf
+zinit light Freed-Wu/fzf-tab-source
 
 # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
@@ -71,3 +82,7 @@ function timezsh() {
   for i in {1..5}; do /usr/bin/time -p zsh -i -c exit; done
 }
 ### End of Zinit's installer chunk
+
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi
