@@ -29,6 +29,11 @@ zinit light wintermi/zsh-brew
 zinit ice wait lucid blockf
 zinit snippet OMZP::asdf/asdf.plugin.zsh
 
+# mmv renamer
+zinit ice lucid wait'0' as'program' id-as'mmv' from'gh-r' \
+  mv'mmv* -> mmv' pick'mmv/mmv'
+zinit light 'itchyny/mmv'
+
 zinit ice wait lucid blockf
 zinit light atuinsh/atuin
 
@@ -41,7 +46,7 @@ zinit light ajeetdsouza/zoxide
 zinit ice wait lucid blockf
 zinit light Aloxaf/fzf-tab
 
-# direnv — from GitHub releases
+# # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
     pick"direnv" src="zhook.zsh" for \
