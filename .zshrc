@@ -20,8 +20,14 @@ zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # 5. Initialize completions early (needed for proper tab completion)
-autoload -Uz compinit
-compinit
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zinit ice as'program' id-as'carapace' from'gh-r' atload' \
+  autoload -Uz compinit; \
+  compinit; \
+  source <(carapace _carapace);'
+zinit light carapace-sh/carapace-bin
+
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 
 # 6. Plugins (turbo when possible)
 zinit ice wait lucid atload'_zsh_autosuggest_start'
@@ -54,8 +60,8 @@ zinit light Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' popup-min-size 200 8
 
-zinit ice wait lucid blockf
-zinit light Freed-Wu/fzf-tab-source
+# zinit ice wait lucid blockf
+# zinit light Freed-Wu/fzf-tab-source
 
 # # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
