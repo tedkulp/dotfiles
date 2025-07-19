@@ -27,7 +27,7 @@ zinit ice as'program' id-as'carapace' from'gh-r' atload' \
   source <(carapace _carapace);'
 zinit light carapace-sh/carapace-bin
 
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+# zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 
 # 6. Plugins (turbo when possible)
 zinit ice wait lucid atload'_zsh_autosuggest_start'
@@ -49,19 +49,19 @@ zinit ice wait lucid blockf
 zinit light atuinsh/atuin
 bindkey '^r' atuin-search
 
-zinit wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
+zinit wait lucid for matthiasha/zsh-uv-env
 
 zinit ice wait lucid blockf
 zinit light ajeetdsouza/zoxide
 
-# fzf-tab — defer after other interactive tools
-zinit ice wait lucid blockf
-zinit light Aloxaf/fzf-tab
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-zstyle ':fzf-tab:*' popup-min-size 200 8
-
-# zinit ice wait lucid blockf
-# zinit light Freed-Wu/fzf-tab-source
+if [[ "${TERM_PROGRAM}" == "tmux" ]]; then
+  # fzf-tab — defer after other interactive tools
+  zinit ice wait lucid blockf
+  zinit light Aloxaf/fzf-tab
+  zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+  zstyle ':fzf-tab:*' popup-min-size 200 8
+  zstyle ':fzf-tab:*' query-string ''
+fi
 
 # # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
@@ -93,6 +93,20 @@ function timezsh() {
   for i in {1..5}; do /usr/bin/time -p zsh -i -c exit; done
 }
 ### End of Zinit's installer chunk
+
+# Shell-GPT integration ZSH v0.2
+_sgpt_zsh() {
+if [[ -n "$BUFFER" ]]; then
+    _sgpt_prev_cmd=$BUFFER
+    BUFFER+="⌛"
+    zle -I && zle redisplay
+    BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd" --no-interaction)
+    zle end-of-line
+fi
+}
+zle -N _sgpt_zsh
+bindkey ^p _sgpt_zsh
+# Shell-GPT integration ZSH v0.2
 
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof

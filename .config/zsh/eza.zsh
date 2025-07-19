@@ -2,7 +2,7 @@
 ls()   { eza --icons -G "$@" }
 zstyle ':completion:ls:*' description 'eza (icons, color)'
 
-lm()   { ls --sort=modified "$@" }
+ldm()   { ls --sort=modified "$@" }
 zstyle ':completion:lm:*' description 'ls sorted by modified time'
 
 la()   { ls -a "$@" }
@@ -15,13 +15,13 @@ zstyle ':completion:lam:*' description 'ls all sorted by modified time'
 ll()   { eza -lbhHigUmuS --icons --git --color-scale --time-style=long-iso "$@" }
 zstyle ':completion:ll:*' description 'eza long listing (git, color-scale, long time)'
 
-llm()  { ll --sort=modified "$@" }
+lldm()  { ll --sort=modified "$@" }
 zstyle ':completion:llm:*' description 'll sorted by modified time'
 
 lla()  { ll --all "$@" }
 zstyle ':completion:lla:*' description 'll all (hidden files)'
 
-llam() { lla --sort=modified "$@" }
+lladm() { lla --sort=modified "$@" }
 zstyle ':completion:llam:*' description 'll all sorted by modified time'
 
 # laa, lx, lxa
