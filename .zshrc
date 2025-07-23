@@ -49,6 +49,8 @@ zinit ice wait lucid blockf
 zinit light atuinsh/atuin
 bindkey '^r' atuin-search
 
+# uv
+export PATH="$HOME/.local/bin:$PATH"
 zinit wait lucid for matthiasha/zsh-uv-env
 
 zinit ice wait lucid blockf
@@ -78,9 +80,6 @@ zi for \
     blockf \
     lucid \
     zsh-users/zsh-completions
-
-# uv
-export PATH="$HOME/.local/bin:$PATH"
 
 # 9. Load all custom configs from $ZSH_CUSTOM
 for config_file ("$ZSH_CUSTOM"/*.zsh(N)); do

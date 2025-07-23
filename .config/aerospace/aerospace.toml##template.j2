@@ -154,8 +154,20 @@ if.app-id = 'app.soulver.appstore.mac'
 run = ['layout floating']
 
 [[on-window-detected]]
+if.app-id = 'com.openai.chat'
+run = ['layout floating']
+if.window-title-regex-substring = '.*settings.*'
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = ['layout floating']
+if.window-title-regex-substring = '.*settings.*'
+check-further-callbacks = true
+
+[[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = [ 'layout tiling' ]
+run = ['layout tiling']
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -292,6 +304,7 @@ alt-shift-tab = 'workspace-back-and-forth'
 alt-ctrl-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
+alt-shift-semicolon = 'mode service'
 alt-ctrl-shift-semicolon = 'mode service'
 
 cmd-h = []     # Disable "hide application"
