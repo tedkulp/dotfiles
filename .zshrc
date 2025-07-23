@@ -50,9 +50,11 @@ zinit light atuinsh/atuin
 bindkey '^r' atuin-search
 
 # uv
+zinit ice wait lucid blockf
+zinit load matthiasha/zsh-uv-env
 export PATH="$HOME/.local/bin:$PATH"
-zinit wait lucid for matthiasha/zsh-uv-env
 
+# zoxide
 zinit ice wait lucid blockf
 zinit light ajeetdsouza/zoxide
 

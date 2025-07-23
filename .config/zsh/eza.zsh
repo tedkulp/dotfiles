@@ -43,3 +43,6 @@ zstyle ':completion:llt:*' description 'eza tree view'
 
 llta() { llt --all "$@" }
 zstyle ':completion:llta:*' description 'eza tree view with all files'
+
+lltd() { llt -D "$@" }
+zstyle ':completion:lltd:*' description 'eza tree view with just directories'
