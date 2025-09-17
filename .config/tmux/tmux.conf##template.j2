@@ -1,6 +1,10 @@
 # Allows colors to better match
 set-option -sa terminal-overrides ",xterm*:Tc"
 
+# Stop swalloing characters
+set -g extended-keys on
+set -as terminal-features 'xterm*:extkeys,tmux*:extkeys'
+
 # Mouseify mode
 set -g mouse on
 
