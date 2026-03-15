@@ -61,6 +61,7 @@ set -g @plugin 'sainnhe/tmux-fzf'                   # prefix + F
 set -g @plugin 'tmux-plugins/tmux-urlview'          # prefix + u
 set -g @plugin 'tmux-plugins/tmux-yank'             # prefix + y
 set -g @plugin 'schasse/tmux-jump'                  # prefix + j
+set -g @plugin 'loichyan/tmux-toggle-popup'
 
 {% if YADM_OS == "Darwin" %}
 run '/opt/homebrew/opt/tpm/share/tpm/tpm'
@@ -81,3 +82,8 @@ bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
 # Use F12 for pane sync
 bind-key e set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
+
+bind-key p run "#{@popup-toggle} -w75% -h75% -Ed'##{pane_current_path}'"
+
+bind-key g split-window -h -p 40 -c "#{pane_current_path}" "sh -c 'if command -v mise >/dev/null 2>&1; then mise exec -- claude; else claude; fi'"
+bind-key G split-window -h -p 40 -c "#{pane_current_path}" "sh -c 'if command -v mise >/dev/null 2>&1; then mise exec -- codex; else codex; fi'"

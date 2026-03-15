@@ -10,6 +10,9 @@ fi
 # 2. Load Zinit
 source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 
+autoload -Uz compinit
+zicompinit
+
 export ZSH_CUSTOM=$HOME/.config/zsh
 
 # 3. Load Powerlevel10k — do NOT use ice wait or turbo on it
@@ -19,11 +22,12 @@ zinit light romkatv/powerlevel10k
 # 4. Source your p10k config
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
 # 5. Initialize completions early (needed for proper tab completion)
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 zinit ice as'program' id-as'carapace' from'gh-r' atload' \
-  autoload -Uz compinit; \
-  compinit; \
+  # autoload -Uz compinit; \
+  # compinit; \
   source <(carapace _carapace);'
 zinit light carapace-sh/carapace-bin
 
@@ -33,17 +37,29 @@ zinit light carapace-sh/carapace-bin
 zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
-zinit ice wait lucid blockf
+# zinit ice wait lucid blockf
 zinit light wintermi/zsh-brew
 
-zinit ice wait lucid blockf
-zinit snippet OMZP::asdf/asdf.plugin.zsh
+# zinit ice wait lucid blockf
+zinit as="command" lucid from="gh-r" for \
+    id-as="usage" \
+    atpull="%atclone" \
+    jdx/usage
+    #atload='eval "$(mise activate zsh)"' \
+
+zinit as="command" lucid from="gh-r" for \
+    id-as="mise" mv="mise* -> mise" \
+    atclone="./mise* completion zsh > _mise" \
+    atpull="%atclone" \
+    atload='eval "$(mise activate zsh)"' \
+    jdx/mise
 
 # mmv renamer
 zinit ice lucid wait'0' as'program' id-as'mmv' from'gh-r' \
   mv'mmv* -> mmv' pick'mmv/mmv'
 zinit light 'itchyny/mmv'
 
+bindkey -e
 export ATUIN_NOBIND="true"
 zinit ice wait lucid blockf
 zinit light atuinsh/atuin
@@ -67,7 +83,7 @@ if [[ "${TERM_PROGRAM}" == "tmux" ]]; then
   zstyle ':fzf-tab:*' query-string ''
 fi
 
-# # direnv — from GitHub releases
+# direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
     pick"direnv" src="zhook.zsh" for \
@@ -77,11 +93,14 @@ zinit from"gh-r" as"program" mv"direnv* -> direnv" \
 zinit ice wait lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
+
 # 8. Completions (keep blockf, no wait!)
 zi for \
     blockf \
     lucid \
     zsh-users/zsh-completions
+
+zicdreplay
 
 # 9. Load all custom configs from $ZSH_CUSTOM
 for config_file ("$ZSH_CUSTOM"/*.zsh(N)); do
@@ -112,3 +131,9 @@ bindkey ^p _sgpt_zsh
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+export PATH=$PATH:~/.kube/plugins/jordanwilson230
+
+# Codeman tmux session shortcut
+alias sc='tmux-chooser'
+
+alias claude-mem='bun "/Users/tedkulp/.claude/plugins/cache/thedotmack/claude-mem/10.5.5/scripts/worker-service.cjs"'

@@ -1,4 +1,5 @@
 alias glvw="glab repo view --web"
+alias glvmr="glab mr view --web"
 alias glmr="glab mr create --fill --squash-before-merge --remove-source-branch --allow-collaboration"
 
 #compdef gitlab-ci-local

@@ -96,6 +96,8 @@ keybind = super+k=clear_screen
 keybind = super+physical:two=goto_tab:2
 keybind = super+physical:six=goto_tab:6
 keybind = super+v=paste_from_clipboard
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+enter=text:\n
 window-padding-x = 2
 window-padding-y = 2
 window-padding-balance = false
