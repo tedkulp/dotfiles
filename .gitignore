@@ -2,3 +2,5 @@
 .td
 .DS_Store
 .worktrees
+.planning
+**/settings.local.json
