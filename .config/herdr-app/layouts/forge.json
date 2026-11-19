@@ -1,0 +1,146 @@
+{
+  "id": "root",
+  "type": "column",
+  "children": [
+    {
+      "id": "forge-bar",
+      "type": "block",
+      "size": {
+        "px": 38
+      },
+      "content": {
+        "mod": "forge-window",
+        "props": {
+          "bar": true
+        }
+      }
+    },
+    {
+      "id": "forge-body",
+      "type": "row",
+      "divider": {
+        "width": 1,
+        "color": "border"
+      },
+      "children": [
+        {
+          "id": "forge-left",
+          "type": "column",
+          "size": {
+            "px": 360
+          },
+          "divider": {
+            "width": 1,
+            "color": "border"
+          },
+          "children": [
+            {
+              "id": "forge-requests",
+              "type": "block",
+              "content": {
+                "mod": "forge-requests",
+                "props": {
+                  "provider": "github",
+                  "host": "github.com",
+                  "repo": "tedkulp/tedkulp.com",
+                  "on": null,
+                  "folder": "/home/ted/src/tedkulp.com"
+                }
+              }
+            },
+            {
+              "id": "forge-milestones",
+              "type": "block",
+              "content": {
+                "mod": "forge-milestones",
+                "props": {
+                  "provider": "github",
+                  "host": "github.com",
+                  "repo": "tedkulp/tedkulp.com",
+                  "on": null
+                }
+              }
+            },
+            {
+              "id": "forge-velocity",
+              "type": "block",
+              "size": {
+                "px": 330
+              },
+              "content": {
+                "mod": "forge-velocity",
+                "props": {
+                  "provider": "github",
+                  "host": "github.com",
+                  "repo": "tedkulp/tedkulp.com",
+                  "on": null,
+                  "folder": "/home/ted/src/tedkulp.com",
+                  "glabOn": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "forge-middle",
+          "type": "column",
+          "size": {
+            "px": 340
+          },
+          "divider": {
+            "width": 1,
+            "color": "border"
+          },
+          "children": [
+            {
+              "id": "forge-ci",
+              "type": "block",
+              "size": {
+                "weight": 2
+              },
+              "content": {
+                "mod": "forge-ci",
+                "props": {
+                  "provider": "github",
+                  "host": "github.com",
+                  "repo": "tedkulp/tedkulp.com",
+                  "on": null
+                }
+              }
+            },
+            {
+              "id": "forge-runners",
+              "type": "block",
+              "size": {
+                "weight": 1
+              },
+              "content": {
+                "mod": "forge-runners",
+                "props": {
+                  "provider": "github",
+                  "host": "github.com",
+                  "repo": "tedkulp/tedkulp.com",
+                  "on": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "forge-issues",
+          "type": "block",
+          "content": {
+            "mod": "forge-issues",
+            "props": {
+              "provider": "github",
+              "host": "github.com",
+              "repo": "tedkulp/tedkulp.com",
+              "on": null,
+              "folder": "/home/ted/src/tedkulp.com"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

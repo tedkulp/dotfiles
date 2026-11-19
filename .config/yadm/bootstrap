@@ -1,23 +1,4 @@
 #!/bin/bash
-
-cd $HOME
-
-# What are we packing?
-system_type=$(uname -s)
-
-# Because submodules suck...
-git clone https://github.com/gpakosz/.tmux.git $HOME/.tmux
-mkdir -p $HOME/.config
-git clone git@github.com:tedkulp/lazyvim $HOME/.config/nvim
-
-# Link in our tmux config
-if [ ! -f "$HOME/.tmux.conf" ]; then
-  ln -s -f .tmux/.tmux.conf
-fi
-
-mkdir -p $HOME/.asdf/plugins/erlang/kerl-home
-cp .kerlrc $HOME/.asdf/plugins/erlang/kerl-home/.kerlrc
-
-# Wrapping up
+# Packages, zinit, mise and the login shell come from the Ansible repo
+# (playbooks/mac.yml, servers.yml). Only secrets are left for here.
 echo "Don't forget to run yadm decrypt!"
-exit 0

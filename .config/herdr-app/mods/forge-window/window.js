@@ -1,0 +1,195 @@
+// The Forge layout and its settings, kept free of Herdr imports so they're tested
+// under plain Node.
+
+// The panels, in order, with where they go.
+export const PANELS = [
+  { name: "requests", mod: "forge-requests", label: "MRs", side: "left" },
+  { name: "milestones", mod: "forge-milestones", label: "Milestones", side: "left" },
+  { name: "velocity", mod: "forge-velocity", label: "Velocity", side: "left", px: 330 },
+  { name: "ci", mod: "forge-ci", label: "CI", side: "middle", weight: 2 },
+  { name: "runners", mod: "forge-runners", label: "Runners", side: "middle", weight: 1 },
+  { name: "issues", mod: "forge-issues", label: "Issues" },
+];
+
+// `forge.json` in Herdr's folder (optional):
+//   { "forges": { "git.acme.io": "gitlab" },
+//     "projects": { "gitlab.com/acme/shop": { "on": "my-mac", "folder": "/src/shop",
+//       "issues": { "triage": true, "actions": [...] }, "requests": { "actions": [...] } } } }
+// Bad JSON or a missing file is no settings, not an error that stops the window.
+export function parseConfig(text) {
+  try {
+    const c = JSON.parse(text ?? "");
+    return c && typeof c === "object" && !Array.isArray(c) ? c : {};
+  } catch {
+    return {};
+  }
+}
+
+export const projectKey = (p) => (p ? `${p.host}/${p.repo}` : "");
+
+export function panelSelectionKey(project) {
+  return `forge-window.panels:${JSON.stringify([project.on ?? null, project.provider, project.host?.toLowerCase(), project.repo])}`;
+}
+
+export function selectedPanels(project, config = {}, saved = null) {
+  if (Array.isArray(saved)) return PANELS.filter((p) => saved.includes(p.name)).map((p) => p.name);
+  const hidden = config.projects?.[projectKey(project)]?.hidden ?? config.hidden;
+  return PANELS.filter((p) => !Array.isArray(hidden) || !hidden.includes(p.name)).map((p) => p.name);
+}
+
+export function togglePanel(selected, name) {
+  if (!PANELS.some((p) => p.name === name)) return selected;
+  return PANELS.filter((p) => p.name === name ? !selected.includes(name) : selected.includes(p.name)).map((p) => p.name);
+}
+
+export function panelLabel(panel, provider) {
+  if (panel.name === "requests") return provider === "github" ? "Pull requests" : "Merge requests";
+  if (panel.name === "ci") return provider === "github" ? "Workflow runs" : "Pipelines";
+  return panel.label;
+}
+
+// The last project lives in Herdr's persisted shared state. Reopening Forge should
+// keep that choice, even when focus moved to a terminal in another repository.
+export function rememberedProject(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value) || value.none
+    || !["gitlab", "github"].includes(value.provider)
+    || typeof value.host !== "string" || !value.host.trim()
+    || typeof value.repo !== "string" || !value.repo.trim()
+    || (value.on != null && typeof value.on !== "string")
+    || (value.folder != null && typeof value.folder !== "string")) return null;
+  return value;
+}
+
+// A project's settings: the file's entry for it over what was found from the terminal.
+export function withConfig(project, config) {
+  const own = config?.projects?.[projectKey(project)] ?? {};
+  return { ...project, on: own.on !== undefined ? own.on : project.on, folder: own.folder ?? project.folder };
+}
+
+// The window's layout: the bar on top, then the left column (MRs, milestones, velocity),
+// CI, runners and the issue browser, leaving out hidden panels.
+// The Forge layout: the whole Herdr window for one project. The bar on top, then a
+// column with MRs, milestones and velocity, a column with CI over runners, and the issue
+// browser filling the rest (it needs the room: filters, list and detail side by side). Each
+// panel is a layout block, so it collapses, detaches and opens as a pane like any other.
+// Written to layouts/forge.json and shown with layout.switch.
+// Blocks other packages put in layouts/forge.json (any block whose mod isn't one of Forge's,
+// such as herdr-workstream's zero-height publisher) survive Forge rewriting the file: pass
+// keptBlocks(the current layout) as `kept`, and each goes back into the column it was in
+// (the left one when that column is gone).
+export function keptBlocks(layout) {
+  const own = new Set([...PANELS.map((p) => p.mod), "forge-window"]);
+  const out = [];
+  const walk = (n, parent) => {
+    if (!n || typeof n !== "object") return;
+    const mod = n.content && typeof n.content === "object" ? n.content.mod : null;
+    if (n.type === "block" && mod && !own.has(mod)) out.push({ parent: parent?.id ?? null, block: n });
+    for (const c of Array.isArray(n.children) ? n.children : []) walk(c, n);
+  };
+  walk(layout, null);
+  return out;
+}
+
+export function forgeLayout(project, config = {}, kept = [], selected = selectedPanels(project, config)) {
+  const own = config?.projects?.[projectKey(project)] ?? {};
+  const base = { provider: project.provider, host: project.host, repo: project.repo, on: project.on ?? null };
+  const block = (p, props) => ({
+    id: `forge-${p.name}`, type: "block",
+    ...(p.px ? { size: { px: p.px } } : p.weight ? { size: { weight: p.weight } } : {}),
+    content: { mod: p.mod, props: { ...props, ...(own[p.name] ?? {}) } },
+  });
+  // Velocity gets the project's checkout too, so it shows this project rather than the
+  // focused terminal's (without a folder it follows focus).
+  const propsOf = (p) => p.name === "velocity" ? { ...base, folder: project.folder ?? null, glabOn: base.on, forges: config.forges }
+    : p.name === "requests" || p.name === "issues" ? { ...base, folder: project.folder ?? null } : base;
+  const column = (id, side, px) => ({ id, type: "column", size: { px }, divider: { width: 1, color: "border" },
+    children: PANELS.filter((p) => p.side === side && selected.includes(p.name)).map((p) => block(p, propsOf(p))) });
+  const row = [
+    column("forge-left", "left", 360),
+    column("forge-middle", "middle", 340),
+    ...PANELS.filter((p) => !p.side && selected.includes(p.name)).map((p) => block(p, propsOf(p))),
+  ];
+  const columns = new Map(row.filter((n) => n.type === "column").map((n) => [n.id, n]));
+  const ids = new Set(row.flatMap((n) => [n.id, ...(n.children ?? []).map((c) => c.id)]));
+  for (const { parent, block: b } of kept ?? []) {
+    if (!b?.id || ids.has(b.id)) continue;
+    ids.add(b.id);
+    (columns.get(parent) ?? columns.get("forge-left")).children.push(b);
+  }
+  // Remove empty columns as well as the panel blocks: removed views are destroyed,
+  // so their timers and GitHub polling stop rather than running in a hidden slot.
+  const visible = row.filter((n) => n.type !== "column" || n.children.length);
+  if (visible.length && !visible.some((n) => n.id === "forge-issues")) visible[visible.length - 1].size = { weight: 1 };
+  if (!visible.length) visible.push({ id: "forge-empty", type: "block", content: { mod: "forge-window", props: { empty: true } } });
+  return {
+    id: "root", type: "column", children: [
+      { id: "forge-bar", type: "block", size: { px: 38 }, content: { mod: "forge-window", props: { bar: true } } },
+      { id: "forge-body", type: "row", divider: { width: 1, color: "border" }, children: visible },
+    ],
+  };
+}
+
+// What `git` says about the focused terminal's folder, as the window's project, or null
+// outside a repo. fields: { top, url } from the RESOLVE script; remote: parseRemote(url).
+export function projectFrom(fields, remote, on, providerForHost, forges) {
+  if (!fields?.top) return null;
+  if (!remote) return { none: true, top: fields.top };
+  const provider = providerForHost(remote.host, forges ?? {});
+  if (!provider) return { none: true, top: fields.top, host: remote.host };
+  return { provider, host: remote.host, repo: remote.path, on: on ?? null, folder: fields.top };
+}
+
+// Whether a value is a project Forge can open (projectFrom's, not its { none } or null).
+export const usableProject = (p) => Boolean(p && typeof p === "object" && !p.none && p.provider && p.host && p.repo);
+
+// What `git` says about a folder, one `name\tvalue` line each: top (the checkout's top
+// folder), url (origin's URL) and linked (1 in a linked worktree, 0 in the main checkout:
+// a linked worktree's git dir differs from the repo's common dir). Nothing outside a repo.
+// main.js runs it with `sh -c` in a folder, on its space's machine.
+export const RESOLVE = `top=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+printf 'top\\t%s\\n' "$top"
+printf 'url\\t%s\\n' "$(git remote get-url origin 2>/dev/null)"
+gd=$(cd "$(git rev-parse --git-dir)" && pwd -P)
+cd=$(cd "$(git rev-parse --git-common-dir)" && pwd -P)
+if [ "$gd" = "$cd" ]; then printf 'linked\\t0\\n'; else printf 'linked\\t1\\n'; fi`;
+
+// RESOLVE's output as fields ({} for no output).
+export const parseFields = (stdout) => Object.fromEntries(String(stdout ?? "").split("\n").filter(Boolean).map((l) => l.split("\t")));
+
+// A promise that rejects after `ms` unless `promise` settled first. sleep(ms) is the
+// caller's timer (herdr-app has no setTimeout: main.js passes cx.sleep).
+export function withTimeout(promise, ms, sleep) {
+  let settled = false;
+  const job = Promise.resolve(promise).finally(() => { settled = true; });
+  const timer = Promise.resolve(sleep(ms)).then(() => {
+    if (!settled) throw new Error(`timed out after ${Math.round(ms / 1000)} s`);
+    return job;
+  });
+  return Promise.race([job, timer]);
+}
+
+// The bar's "Other project" rows: one per repo open in some space, across spaces and
+// machines. entries: [{ space, project, linked }] in spaces() order, project from
+// projectFrom (null or { none } outside a GitLab/GitHub repo: left out). The window's own
+// project (current) is left out too. Each repo opens from one of its spaces: one on this
+// computer (space.machine null) before another machine's, then a main checkout before a
+// linked worktree, then the first in spaces() order. Rows follow the first space of each
+// repo. Each row: { key, label, host, showHost, project, space }. showHost: draw the host
+// beside the label, for a host other than gitlab.com or github.com, or when two rows share a
+// label (the same owner/repo on both).
+export function otherProjects(entries, current) {
+  const skip = usableProject(current) ? projectKey(current) : null;
+  const rank = (e) => (e.space?.machine == null ? 0 : 2) + (e.linked ? 1 : 0);
+  const best = new Map();
+  for (const e of entries ?? []) {
+    if (!usableProject(e?.project)) continue;
+    const key = projectKey(e.project);
+    if (key === skip) continue;
+    const had = best.get(key);
+    if (!had || rank(e) < rank(had)) best.set(key, e);
+  }
+  const rows = [...best].map(([key, e]) => ({ key, label: e.project.repo, host: e.project.host, project: e.project, space: e.space }));
+  const labels = new Map();
+  for (const r of rows) labels.set(r.label, (labels.get(r.label) ?? 0) + 1);
+  return rows.map((r) => ({ ...r, showHost: (r.host !== "gitlab.com" && r.host !== "github.com") || labels.get(r.label) > 1 }));
+}
