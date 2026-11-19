@@ -59,14 +59,10 @@ zinit load matthiasha/zsh-uv-env
 zinit ice wait lucid blockf
 zinit light ajeetdsouza/zoxide
 
-if [[ "${TERM_PROGRAM}" == "tmux" ]]; then
-  # fzf-tab — defer after other interactive tools
-  zinit ice wait lucid blockf
-  zinit light Aloxaf/fzf-tab
-  zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-  zstyle ':fzf-tab:*' popup-min-size 200 8
-  zstyle ':fzf-tab:*' query-string ''
-fi
+# fzf-tab — defer after other interactive tools
+zinit ice wait lucid blockf
+zinit light Aloxaf/fzf-tab
+zstyle ':fzf-tab:*' query-string ''
 
 # direnv — from GitHub releases
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
@@ -119,7 +115,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:~/.kube/plugins/jordanwilson230
 
 # 11. Aliases
-alias sc='tmux-chooser'
 alias claude-mem='bun "/Users/tedkulp/.claude/plugins/cache/thedotmack/claude-mem/10.5.5/scripts/worker-service.cjs"'
 
 setopt autocd              # change directory just by typing its name
