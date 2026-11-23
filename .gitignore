@@ -3,4 +3,8 @@
 .DS_Store
 .worktrees
 .planning
+.internal
 **/settings.local.json
+.stfolder
+.todos
+.bv
