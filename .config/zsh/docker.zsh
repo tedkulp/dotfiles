@@ -1,23 +1,54 @@
+# Where the dc* helpers point compose: the current directory if it has a
+# compose file, otherwise the server stack Ansible deploys to
+# /opt/docker-compose. Laptops have no such directory, so they keep the
+# plain current-directory behavior.
+_DC_SERVER_DIR=/opt/docker-compose
+
+_dc_use_server_dir() {
+  local f
+  for f in compose.yaml compose.yml docker-compose.yaml docker-compose.yml; do
+    [[ -f $f ]] && return 1
+  done
+  [[ -f $_DC_SERVER_DIR/docker-compose.yml ]]
+}
+
+_dc() {
+  if _dc_use_server_dir; then
+    docker compose --project-directory "$_DC_SERVER_DIR" "$@"
+  else
+    docker compose "$@"
+  fi
+}
+
+# dc-update (github:tedkulp/dc-update via mise) takes the compose file with -f
+dc-update() {
+  if _dc_use_server_dir; then
+    command dc-update -f "$_DC_SERVER_DIR/docker-compose.yml" "$@"
+  else
+    command dc-update "$@"
+  fi
+}
+
 function dcrun () {
-  docker compose "$@"
+  _dc "$@"
 }
 
 function dclogs () {
-  docker compose logs "$@"
+  _dc logs "$@"
 }
 
 function dcshell () {
-  docker compose exec "$@" sh -c "[ -e /bin/bash ] && /bin/bash || [ -e /bin/zsh ] && /bin/zsh || /bin/sh"
+  _dc exec "$@" sh -c "[ -e /bin/bash ] && /bin/bash || [ -e /bin/zsh ] && /bin/zsh || /bin/sh"
 }
 
 function dcrestart () {
-  docker compose rm -sf "$@"
-  docker compose up -d "$@"
+  _dc rm -sf "$@"
+  _dc up -d "$@"
 }
 
 _dc_services() {
   local -a services
-  services=(${(f)"$(docker compose config --services 2>/dev/null)"})
+  services=(${(f)"$(_dc config --services 2>/dev/null)"})
   _describe 'service' services
 }
 
