@@ -1,4 +1,8 @@
 #!/bin/bash
 # Packages, zinit, mise and the login shell come from the Ansible repo
-# (playbooks/mac.yml, servers.yml). Only secrets are left for here.
+# (playbooks/mac.yml, servers.yml). Only per-machine setup is left here.
+
+# delta's syntax-theme and bat both need the Catppuccin themes in bat's cache
+command -v bat >/dev/null && bat cache --build >/dev/null
+
 echo "Don't forget to run yadm decrypt!"

@@ -1,2 +1,5 @@
-/usr/bin/keychain -q --nogui $HOME/.ssh/id_rsa
-source $HOME/.keychain/$HOST-sh
+# Only where there's a key to load (and keychain to load it)
+if [[ -x /usr/bin/keychain && -f $HOME/.ssh/id_rsa ]]; then
+  /usr/bin/keychain -q --nogui $HOME/.ssh/id_rsa
+  source $HOME/.keychain/$HOST-sh
+fi

@@ -2,23 +2,27 @@
   name = Ted Kulp
   email = ted@tedkulp.com
   gmail = tedkulp@gmail.com
+{% if yadm.os == "Darwin" %}
   signingKey = AE6B007E2FAB1C94319C7C09FD56BE79CDAE7895
+{% endif %}
 
 [core]
   pager = delta
   excludesFile = ~/.gitignore
 
+{% if yadm.os == "Darwin" %}
 [commit]
   gpgsign = true
 
 [credential]
   helper = osxkeychain
 
-[pull]
- rebase = false
-
 [tag]
   forceSignAnnotated = true
+{% endif %}
+
+[pull]
+ rebase = false
 
 [alias]
   mdr = merge --no-commit --no-ff
