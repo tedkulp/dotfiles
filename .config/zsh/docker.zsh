@@ -1,50 +1,62 @@
-# Where the dc* helpers point compose: the current directory if it has a
-# compose file, otherwise the server stack Ansible deploys to
-# /opt/docker-compose. Laptops have no such directory, so they keep the
-# plain current-directory behavior.
+# Docker Compose helpers. They act on, in order:
+#   1. $DC_DIR, if set
+#   2. the current directory, if it has a compose file
+#   3. /opt/docker-compose, where Ansible deploys each server's stack
+#   4. the current directory (plain `docker compose` lookup)
+# Laptops have no /opt/docker-compose, so they get 2 or 4.
 _DC_SERVER_DIR=/opt/docker-compose
+_DC_FILES=(compose.yaml compose.yml docker-compose.yaml docker-compose.yml)
 
-_dc_use_server_dir() {
+# Prints the directory to use, or nothing for plain compose lookup.
+_dc_dir() {
   local f
-  for f in compose.yaml compose.yml docker-compose.yaml docker-compose.yml; do
-    [[ -f $f ]] && return 1
-  done
-  [[ -f $_DC_SERVER_DIR/docker-compose.yml ]]
+  if [[ -n $DC_DIR ]]; then print -r -- "$DC_DIR"; return; fi
+  for f in $_DC_FILES; do [[ -f $f ]] && { print -r -- "$PWD"; return; }; done
+  [[ -f $_DC_SERVER_DIR/docker-compose.yml ]] && print -r -- "$_DC_SERVER_DIR"
+}
+
+# Compose file inside the chosen directory.
+_dc_file() {
+  local d=${$(_dc_dir):-$PWD} f
+  for f in $_DC_FILES; do [[ -f $d/$f ]] && { print -r -- "$d/$f"; return; }; done
+  print -r -- "$d/docker-compose.yml"
 }
 
 _dc() {
-  if _dc_use_server_dir; then
-    docker compose --project-directory "$_DC_SERVER_DIR" "$@"
+  local d=$(_dc_dir)
+  if [[ -n $d ]]; then
+    docker compose -f "$(_dc_file)" --project-directory "$d" "$@"
   else
     docker compose "$@"
   fi
 }
 
-# dc-update (github:tedkulp/dc-update via mise) takes the compose file with -f
+dcrun()     { _dc "$@"; }
+dcrunnopd() { docker compose -f "$(_dc_file)" "$@"; }   # no --project-directory
+dclogs()    { _dc logs "$@"; }
+dcssh()     { _dc exec "$@"; }
+dcrestart() { _dc rm -fs "$@" && _dc up --remove-orphans -d "$@"; }
+dcbash()    { _dc exec "$@" sh -c 'exec $(command -v bash || command -v ash || command -v sh)'; }
+dcsh()      { dcbash "$@"; }
+dcshell()   { dcbash "$@"; }
+dcedit()    { "${EDITOR:-nvim}" "$(_dc_file)"; }
+dcenv()     { "${EDITOR:-nvim}" "${$(_dc_dir):-$PWD}/.env"; }
+dccd()      { cd "${$(_dc_dir):-$PWD}"; }
+dcupdate()  { cd "${$(_dc_dir):-$PWD}" && dc-update --show-warnings=true "$@"; }
+
+# dc-update (github:tedkulp/dc-update via mise) reads ./docker-compose.yml
+# unless given -f.
 dc-update() {
-  if _dc_use_server_dir; then
-    command dc-update -f "$_DC_SERVER_DIR/docker-compose.yml" "$@"
+  local d=$(_dc_dir)
+  if [[ -n $d && $d != $PWD ]]; then
+    command dc-update -f "$(_dc_file)" "$@"
   else
     command dc-update "$@"
   fi
 }
 
-function dcrun () {
-  _dc "$@"
-}
-
-function dclogs () {
-  _dc logs "$@"
-}
-
-function dcshell () {
-  _dc exec "$@" sh -c "[ -e /bin/bash ] && /bin/bash || [ -e /bin/zsh ] && /bin/zsh || /bin/sh"
-}
-
-function dcrestart () {
-  _dc rm -sf "$@"
-  _dc up -d "$@"
-}
+alias dclogsize="docker inspect --format='{{.LogPath}}' \$(docker ps -a -q) | sudo xargs -n 1 du -ah | sort -h"
+alias dclogtotal="docker inspect --format='{{.LogPath}}' \$(docker ps -a -q) | sudo xargs -n 1 du -ab | awk '{ sum += \$1 } END { print sum }' | numfmt --to=si"
 
 _dc_services() {
   local -a services
@@ -52,7 +64,14 @@ _dc_services() {
   _describe 'service' services
 }
 
-compdef _dc_services dcshell dcrestart dcrun dclogs
+_dc_running_services() {
+  local -a services
+  services=(${(f)"$(_dc ps --services 2>/dev/null)"})
+  _describe 'running service' services
+}
+
+compdef _dc_services dcrun dcrunnopd dclogs dcssh dcrestart dcupdate dc-update
+compdef _dc_running_services dcbash dcsh dcshell
 
 # dcvol - drop into a shell inside a docker volume with the right permissions
 # Usage: dcvol [-i image] [-r] <container> [volume]
@@ -164,4 +183,18 @@ EOF
         sh -c 'command -v bash >/dev/null && exec bash || exec sh'
 }
 
-compdef _dc_services dcvol 2>/dev/null
+_dcvol() {
+  local state line
+  _arguments \
+    '-i[image for the shell]:image:->images' \
+    '-r[run as root]' \
+    '-h[help]' \
+    '1:container:->containers' \
+    '2:volume or mount destination:->mounts'
+  case $state in
+    images) compadd -- ${(f)"$(docker images --format '{{.Repository}}:{{.Tag}}' 2>/dev/null | grep -v '<none>')"} ;;
+    containers) compadd -- ${(f)"$(docker ps -a --format '{{.Names}}' 2>/dev/null)"} ;;
+    mounts) compadd -- ${=$(docker inspect "${line[1]}" --format '{{range .Mounts}}{{if .Name}}{{.Name}} {{end}}{{.Destination}} {{end}}' 2>/dev/null)} ;;
+  esac
+}
+compdef _dcvol dcvol
