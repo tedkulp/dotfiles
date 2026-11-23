@@ -1,31 +1,12 @@
 [user]
   name = Ted Kulp
-{% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
-  email = ted@allocate.co
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsv4Cz+g1q93ifvEhSyMgE6mWiKacoLRKyHgWC7Vey7
-{% else %}
   email = ted@tedkulp.com
   gmail = tedkulp@gmail.com
   signingKey = AE6B007E2FAB1C94319C7C09FD56BE79CDAE7895
-{% endif %}
 
-{% if yadm.hostname == "ALLOCATE-Y3HW9MWW2D" %}
-[core]
-  commentChar = @
-  pager = delta
-  excludesFile = ~/.gitignore
-
-[gpg]
-  format = ssh
-
-[gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-	allowedSignersFile = /Users/tedkulp/.ssh/allowed_signers
-{% else %}
 [core]
   pager = delta
   excludesFile = ~/.gitignore
-{% endif %}
 
 [commit]
   gpgsign = true
