@@ -98,3 +98,14 @@ else
     return 1
   }
 fi
+
+# Web links from a shell with no display of its own (SSH, tty)
+# xdg-open only consults the mimeapps handler when it sees a display; without
+# one it skips the handler and falls back to a list of text browsers. Point
+# BROWSER at the wrapper that borrows the graphical session's env, so links
+# land in the Firefox already running on the desktop. Anything else that
+# honours BROWSER (gh, git web--browse, python -m webbrowser) follows along.
+if [[ "$OSTYPE" == linux* && -z "$WAYLAND_DISPLAY" && -z "$DISPLAY" ]] \
+   && (( $+commands[firefox-desktop] )); then
+  export BROWSER=firefox-desktop
+fi

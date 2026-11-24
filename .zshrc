@@ -123,3 +123,5 @@ setopt nonomatch           # hide error message if there is no match for the pat
 setopt notify              # report the status of background jobs immediately
 setopt numericglobsort     # sort filenames numerically when it makes sense
 setopt promptsubst         # enable command substitution in prompt
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
