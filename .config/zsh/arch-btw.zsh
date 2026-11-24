@@ -1,3 +1,6 @@
+# Arch only: run pacman/yay/paru outside mise so they see system tools
+(( $+commands[pacman] )) || return 0
+
 _mise_passthrough() {
   local cmd=$1; shift
   if ! command -v "$cmd" >/dev/null 2>&1; then
