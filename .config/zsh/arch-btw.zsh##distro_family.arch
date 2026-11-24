@@ -1,0 +1,21 @@
+_mise_passthrough() {
+  local cmd=$1; shift
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    command_not_found_handler "$cmd" 2>/dev/null || echo "zsh: command not found: $cmd" >&2
+    return 1
+  fi
+  if command -v mise >/dev/null 2>&1 && mise deactivate 2>/dev/null; then
+    __mise_reactivate() {
+      add-zsh-hook -d precmd __mise_reactivate
+      unfunction __mise_reactivate
+      eval "$(mise activate zsh)"
+    }
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd __mise_reactivate
+  fi
+  command "$cmd" "$@"
+}
+
+yay()    { _mise_passthrough yay "$@"; }
+paru()   { _mise_passthrough paru "$@"; }
+pacman() { _mise_passthrough pacman "$@"; }
