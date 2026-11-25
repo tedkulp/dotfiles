@@ -1,0 +1,6 @@
+# Linux: no nvim_bin, so herdr-nvim runs nvim from PATH (mise shims).
+# The Mac path lives in config.toml##os.Darwin.
+[app]
+tree_key = "none"
+
+[sidebar]

@@ -1,0 +1,25 @@
+# Allowlist: track only hand-made config. Everything else here is written by
+# herdr-app (state, shipped mods/layouts, type files) or by per-machine
+# installers (herdr-nvim, herdr-customize) with absolute paths baked in.
+/*
+!/.gitignore
+!/keys.json
+!/settings.json
+!/programs.json
+!/AGENTS.local.md
+!/themes/
+
+!/layouts/
+/layouts/*
+!/layouts/main-copy.json
+
+!/mods/
+/mods/*
+!/mods/lazygit/
+
+# Rewritten by herdr-app in every mod folder.
+jsconfig.json
+*.d.ts
+
+# Shipped with the win98 layout.
+/themes/win98.json
